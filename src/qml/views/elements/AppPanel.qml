@@ -16,7 +16,7 @@ Item {
             anchors.left: parent.left
             anchors.leftMargin: Constants.BigMargin
 
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
             text: "Coffey"
             font.bold: true
