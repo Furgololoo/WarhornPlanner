@@ -12,11 +12,27 @@
         <file>views/custom/ScrollBar_C.qml</file>
         <file>views/custom/Slider_C.qml</file>
         <file>views/custom/TextInput_C.qml</file>
-        <file>views/elements/HelpPanel.qml</file>
+        <file>views/elements/MenuPanel.qml</file>
         <file>views/elements/AppPanel.qml</file>
     </qresource>
     <qresource prefix="/icons">
-        <file>icons/close.png</file>
-        <file>icons/minimize.png</file>
+        <file>icons/dark/close.png</file>
+        <file>icons/dark/foo.png</file>
+        <file>icons/dark/menu.png</file>
+        <file>icons/dark/minimize.png</file>
+        <file>icons/light/close.png</file>
+        <file>icons/light/foo.png</file>
+        <file>icons/light/menu.png</file>
+        <file>icons/light/minimize.png</file>
+        <file>icons/dark/account.png</file>
+        <file>icons/dark/add.png</file>
+        <file>icons/dark/backlog.png</file>
+        <file>icons/dark/board.png</file>
+        <file>icons/dark/settings.png</file>
+        <file>icons/light/account.png</file>
+        <file>icons/light/add.png</file>
+        <file>icons/light/backlog.png</file>
+        <file>icons/light/board.png</file>
+        <file>icons/light/settings.png</file>
     </qresource>
 </RCC>

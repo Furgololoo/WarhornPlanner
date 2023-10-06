@@ -31,6 +31,11 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         color: Colors.MainBG
+
+        Image {
+            id: name
+            source: "qrc:/icons/icons/light/settings.png"
+        }
     }
 }
 
