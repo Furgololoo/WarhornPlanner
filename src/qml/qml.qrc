@@ -12,5 +12,11 @@
         <file>views/custom/ScrollBar_C.qml</file>
         <file>views/custom/Slider_C.qml</file>
         <file>views/custom/TextInput_C.qml</file>
+        <file>views/elements/HelpPanel.qml</file>
+        <file>views/elements/AppPanel.qml</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>icons/close.png</file>
+        <file>icons/minimize.png</file>
     </qresource>
 </RCC>
