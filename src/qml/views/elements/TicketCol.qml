@@ -7,6 +7,13 @@ Item {
 
     property string title: "undefined"
 
+    Connections {
+        target: BoardManager
+        function onUpdateBoard() {
+            console.log("Ready called")
+        }
+    }
+
     Rectangle {
         id: header
         width: parent.width

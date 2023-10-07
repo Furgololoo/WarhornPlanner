@@ -248,6 +248,7 @@ Item {
                 else
                     root.width = 40
                 is_open = !is_open
+                BoardManager.setup()
             }
         }
     }

@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
   QGuiApplication app(argc, argv);
 
   Coffey coffey;
-
+  //  coffey.test();
   QQmlApplicationEngine engine;
   engine.rootContext()->setContextProperty("BoardManager",
                                            coffey.getBoardManager());

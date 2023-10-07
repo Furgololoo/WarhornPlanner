@@ -12,17 +12,33 @@ enum class TicketPriority { P1, P2, P3, P4, P5 };
 enum class TicketComponents {
   AI,
   LevelDesign,
-  Model,
-  Animation,
+  Model3D,
+  Animations,
   DevLog,
   Gameplay,
-  Mechanics,
+  Engine,
   Team,
   Code,
   Other
 };
 
-enum class TicketStatus { Open, Closed, InTest, InProgress, Done };
+enum class TicketStatus {
+  Open,
+  Closed,
+  Done,
+  InTest,
+  InProgress,
+  Validated,
+  Blocked,
+  UnderTDD
+};
+
+QString ticketPriorityToString(const TicketPriority& state);
+TicketPriority ticketPriorityToEnum(const QString& state);
+QString ticketComponentsToString(const TicketComponents& state);
+TicketComponents ticketComponentsToEnum(const QString& state);
+QString ticketStatusToString(const TicketStatus& state);
+TicketStatus ticketStatusToEnum(const QString& state);
 
 class TicketInfo : public QObject {
   Q_OBJECT
