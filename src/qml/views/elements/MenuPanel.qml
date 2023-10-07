@@ -20,13 +20,7 @@ Item {
             id: menuImg
             visible: !is_open
             anchors.top: parent.top
-            //            anchors.topMargin: 3
-            anchors.left: parent.left
-            anchors.leftMargin: 3
-            anchors.right: parent.right
-            anchors.rightMargin: 3
-            height: icon_width - 12
-            width: icon_width - 12
+            anchors.horizontalCenter: parent.horizontalCenter
             source: "qrc:/icons/icons/light/menu.png"
         }
 
@@ -44,10 +38,8 @@ Item {
                 id: boardImg
                 source: "qrc:/icons/icons/light/board.png"
                 anchors.left: parent.left
-                anchors.leftMargin: Constants.SmallMargin
+                anchors.leftMargin: Constants.MediumMargin
                 anchors.verticalCenter: parent.verticalCenter
-                height: icon_width - 12
-                width: icon_width - 12
             }
 
             Text {
@@ -89,10 +81,8 @@ Item {
                 id: backlogImg
                 source: "qrc:/icons/icons/light/backlog.png"
                 anchors.left: parent.left
-                anchors.leftMargin: Constants.SmallMargin
+                anchors.leftMargin: Constants.MediumMargin
                 anchors.verticalCenter: parent.verticalCenter
-                height: icon_width - 12
-                width: icon_width - 12
             }
 
             Text {
@@ -134,10 +124,8 @@ Item {
                 id: createTicketImg
                 source: "qrc:/icons/icons/light/add.png"
                 anchors.left: parent.left
-                anchors.leftMargin: Constants.SmallMargin
+                anchors.leftMargin: Constants.MediumMargin
                 anchors.verticalCenter: parent.verticalCenter
-                height: icon_width - 12
-                width: icon_width - 12
             }
 
             Text {
@@ -165,55 +153,10 @@ Item {
             }
         }
 
-        // Settings
-        Rectangle {
-            id: settingsButton
-            anchors.top: createTicketButton.bottom
-            anchors.topMargin: Constants.BigMargin * 1
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: (icon_width * 1.5) - 3
-            color: Colors.MainBG
-
-            Image {
-                id: settingsImg
-                source: "qrc:/icons/icons/light/settings.png"
-                anchors.left: parent.left
-                anchors.leftMargin: Constants.SmallMargin
-                anchors.verticalCenter: parent.verticalCenter
-                height: icon_width - 12
-                width: icon_width - 12
-            }
-
-            Text {
-                anchors.bottom: settingsImg.bottom
-                anchors.left: settingsImg.right
-                anchors.leftMargin: Constants.BigMargin
-                visible: is_open
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                text: "Settings"
-                color: Colors.TextColor
-                font.pointSize: 15
-                font.bold: true
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                onHoveredChanged: {
-                    if(containsMouse)
-                        settingsButton.color = Colors.MainBGDarker
-                    else
-                        settingsButton.color = Colors.MainBG
-                }
-            }
-        }
-
         // Account
         Rectangle {
             id: accountButton
-            anchors.top: settingsButton.bottom
+            anchors.top: createTicketButton.bottom
             anchors.topMargin: Constants.BigMargin * 1
             anchors.left: parent.left
             anchors.right: parent.right
@@ -224,10 +167,8 @@ Item {
                 id: accountImg
                 source: "qrc:/icons/icons/light/account.png"
                 anchors.left: parent.left
-                anchors.leftMargin: Constants.SmallMargin
+                anchors.leftMargin: Constants.MediumMargin
                 anchors.verticalCenter: parent.verticalCenter
-                height: icon_width - 12
-                width: icon_width - 12
             }
 
             Text {
@@ -251,6 +192,49 @@ Item {
                         accountButton.color = Colors.MainBGDarker
                     else
                         accountButton.color = Colors.MainBG
+                }
+            }
+        }
+
+        // Settings
+        Rectangle {
+            id: settingsButton
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: Constants.BigMargin * 1
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: (icon_width * 1.5) - 3
+            color: Colors.MainBG
+
+            Image {
+                id: settingsImg
+                source: "qrc:/icons/icons/light/settings.png"
+                anchors.left: parent.left
+                anchors.leftMargin: Constants.MediumMargin
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            Text {
+                anchors.bottom: settingsImg.bottom
+                anchors.left: settingsImg.right
+                anchors.leftMargin: Constants.BigMargin
+                visible: is_open
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                text: "Settings"
+                color: Colors.TextColor
+                font.pointSize: 15
+                font.bold: true
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                onHoveredChanged: {
+                    if(containsMouse)
+                        settingsButton.color = Colors.MainBGDarker
+                    else
+                        settingsButton.color = Colors.MainBG
                 }
             }
         }
