@@ -21,7 +21,7 @@ Item {
             text: "Coffey"
             font.bold: true
             color: Colors.TextColor
-            font.pointSize: 18
+            font.pointSize: 20
         }
 
         // User info
@@ -36,7 +36,7 @@ Item {
             text: "Szkuti"
             font.bold: true
             color: Colors.TextColor
-            font.pointSize: 18
+            font.pointSize: 20
 
             MouseArea {
                 anchors.fill: parent
