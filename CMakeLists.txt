@@ -22,7 +22,12 @@ qt_add_executable(appWarhornPlanner
     src/managers/networkmanager.h src/managers/networkmanager.cpp
     src/managers/accountmanager.h src/managers/accountmanager.cpp
 
+    # Ticket
     src/ticket/ticketinfo.h src/ticket/ticketinfo.cpp
+    src/ticket/ticketbase.h src/ticket/ticketbase.cpp
+
+    # User
+    src/user/user.h src/user/user.cpp
 
     src/qml/qml.qrc
 )

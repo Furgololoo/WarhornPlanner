@@ -1,7 +1,17 @@
 #include "user.h"
 
-User::User(QObject *parent)
-    : QObject{parent}
+namespace user {
+
+User::User() {}
+
+QString User::getName() const
 {
 
 }
+
+QImage User::getImage() const
+{
+
+}
+
+}  // namespace user

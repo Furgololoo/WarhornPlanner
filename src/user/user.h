@@ -1,16 +1,17 @@
-#ifndef USER_H
-#define USER_H
+#pragma once
 
-#include <QObject>
+#include <QImage>
 
-class User : public QObject
-{
-    Q_OBJECT
-public:
-    explicit User(QObject *parent = nullptr);
+namespace user {
+class User {
+ public:
+  explicit User();
 
-signals:
+  QString getName() const;
+  QImage getImage() const;
 
+ private:
+  QString userName;
+  QImage userImage;
 };
-
-#endif // USER_H
+}  // namespace user

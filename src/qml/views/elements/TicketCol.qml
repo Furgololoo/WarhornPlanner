@@ -32,9 +32,20 @@ Item {
         anchors.right: parent.right
         color: Colors.MainBG
 
-        Image {
-            id: name
-            source: "qrc:/icons/icons/light/settings.png"
+        Column {
+            id: column
+            anchors.fill: parent
+            anchors.margins: {
+                Constants.SmallMargin
+                Constants.SmallMargin
+                Constants.SmallMargin
+                Constants.SmallMargin
+            }
+
+            Ticket {
+                width: column.width
+                height: column.width * 0.8
+            }
         }
     }
 }
