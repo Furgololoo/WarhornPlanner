@@ -26,6 +26,8 @@ enum class TicketStatus { Open, Closed, InTest, InProgress, Done };
 
 class TicketInfo : public QObject {
   Q_OBJECT
+  friend class TicketBase;
+
  public:
   explicit TicketInfo();
 
