@@ -10,7 +10,7 @@
 #include "../config/config.h"
 #include "../ticket/ticketinfo.h"
 
-BoardManager::BoardManager() {}
+BoardManager::BoardManager() { groupedTickets.resize(7); }
 
 void BoardManager::setup() {
   QJsonArray array;
@@ -189,6 +189,24 @@ void BoardManager::setup() {
   }
 
   doc.setArray(array);
+  groupTickets();
+}
+
+QJsonArray BoardManager::getTickets(const quint8 columnIndex) {
+  Q_ASSERT(columnIndex >= 0 && columnIndex < 7);
+  return groupedTickets[columnIndex];
+}
+
+void BoardManager::groupTickets() {
+  auto array = doc.array();
+  for (const auto &i : doc.array()) {
+    auto status_str = i.toObject()["ticket"]
+                          .toObject()["ticket_data"]
+                          .toObject()["status"]
+                          .toString();
+    ticket::TicketStatus status = ticket::ticketStatusToEnum(status_str);
+    groupedTickets[static_cast<quint8>(status)].append(i.toObject());
+  }
   emit updateBoard();
 }
 

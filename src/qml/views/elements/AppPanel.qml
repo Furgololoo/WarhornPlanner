@@ -43,6 +43,7 @@ Item {
 
                 onClicked: {
                     // open user panel
+                    BoardManager.setup()
                 }
             }
         }

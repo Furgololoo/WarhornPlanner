@@ -5,9 +5,13 @@ import CustomElements
 
 Item {
 
+    property var data_json: []
+
     TicketBase {
         id: base
     }
+
+    onData_jsonChanged: base.setData(data_json)
 
     Rectangle {
         anchors.fill: parent
@@ -26,14 +30,11 @@ Item {
             elide: Text.ElideRight
         }
 
-        Image {
-            id: userImg
-            source: "qrc:/icons/icons/light/foo.png"
+        UserImage {
             anchors.right: parent.right
             anchors.rightMargin: Constants.SmallMargin
             anchors.bottomMargin: Constants.SmallMargin
             anchors.bottom: parent.bottom
         }
-
     }
 }

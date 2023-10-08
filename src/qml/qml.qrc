@@ -14,6 +14,7 @@
         <file>views/custom/TextInput_C.qml</file>
         <file>views/elements/MenuPanel.qml</file>
         <file>views/elements/AppPanel.qml</file>
+        <file>views/elements/UserImage.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/dark/close.png</file>
@@ -34,5 +35,6 @@
         <file>icons/light/backlog.png</file>
         <file>icons/light/board.png</file>
         <file>icons/light/settings.png</file>
+        <file>icons/shrek.png</file>
     </qresource>
 </RCC>

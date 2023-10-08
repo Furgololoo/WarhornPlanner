@@ -23,6 +23,7 @@ Item {
                     title: model.modelData
                     height: parent.height
                     width: parent.width/row.namesCount - Constants.MediumMargin
+                    columnIndex: model.index
                 }
             }
         }

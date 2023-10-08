@@ -25,29 +25,32 @@ QDate TicketInfo::getUpdateDate() const { return updateDate; }
 
 TicketStatus TicketInfo::getTicketStatus() const { return status; }
 
-QString ticketPriorityToString(const TicketPriority& state) {
+QString ticketPriorityToString(const TicketPriority &state) {
   QString text{"default"};
   switch (state) {
-    case TicketPriority::P1:
-      text = "P1";
-      break;
-    case TicketPriority::P2:
-      text = "P2";
-      break;
-    case TicketPriority::P3:
-      text = "P3";
-      break;
-    case TicketPriority::P4:
-      text = "P4";
-      break;
-    case TicketPriority::P5:
-      text = "P5";
-      break;
+  case TicketPriority::Undefined:
+    text = "Undefined";
+    break;
+  case TicketPriority::P1:
+    text = "P1";
+    break;
+  case TicketPriority::P2:
+    text = "P2";
+    break;
+  case TicketPriority::P3:
+    text = "P3";
+    break;
+  case TicketPriority::P4:
+    text = "P4";
+    break;
+  case TicketPriority::P5:
+    text = "P5";
+    break;
   }
   return text;
 }
 
-TicketPriority ticketPriorityToEnum(const QString& state) {
+TicketPriority ticketPriorityToEnum(const QString &state) {
   if (state == "P1")
     return TicketPriority::P1;
   else if (state == "P2")
@@ -56,48 +59,50 @@ TicketPriority ticketPriorityToEnum(const QString& state) {
     return TicketPriority::P3;
   else if (state == "P4")
     return TicketPriority::P4;
+  else if (state == "P5")
+    return TicketPriority::P5;
 
-  return TicketPriority::P5;
+  return TicketPriority::Undefined;
 }
 
-QString ticketComponentsToString(const TicketComponents& state) {
+QString ticketComponentsToString(const TicketComponents &state) {
   QString text{"default"};
   switch (state) {
-    case TicketComponents::AI:
-      text = "AI";
-      break;
-    case TicketComponents::LevelDesign:
-      text = "LevelDesign";
-      break;
-    case TicketComponents::Model3D:
-      text = "Model3D";
-      break;
-    case TicketComponents::Animations:
-      text = "Animations";
-      break;
-    case TicketComponents::DevLog:
-      text = "DevLog";
-      break;
-    case TicketComponents::Gameplay:
-      text = "Gameplay";
-      break;
-    case TicketComponents::Engine:
-      text = "Engine";
-      break;
-    case TicketComponents::Team:
-      text = "Team";
-      break;
-    case TicketComponents::Code:
-      text = "Code";
-      break;
-    case TicketComponents::Other:
-      text = "Other";
-      break;
+  case TicketComponents::AI:
+    text = "AI";
+    break;
+  case TicketComponents::LevelDesign:
+    text = "LevelDesign";
+    break;
+  case TicketComponents::Model3D:
+    text = "Model3D";
+    break;
+  case TicketComponents::Animations:
+    text = "Animations";
+    break;
+  case TicketComponents::DevLog:
+    text = "DevLog";
+    break;
+  case TicketComponents::Gameplay:
+    text = "Gameplay";
+    break;
+  case TicketComponents::Engine:
+    text = "Engine";
+    break;
+  case TicketComponents::Team:
+    text = "Team";
+    break;
+  case TicketComponents::Code:
+    text = "Code";
+    break;
+  case TicketComponents::Other:
+    text = "Other";
+    break;
   }
   return text;
 }
 
-TicketComponents ticketComponentsToEnum(const QString& state) {
+TicketComponents ticketComponentsToEnum(const QString &state) {
   if (state == "AI")
     return TicketComponents::AI;
   else if (state == "LevelDesign")
@@ -120,38 +125,38 @@ TicketComponents ticketComponentsToEnum(const QString& state) {
   return TicketComponents::Other;
 }
 
-QString ticketStatusToString(const TicketStatus& state) {
+QString ticketStatusToString(const TicketStatus &state) {
   QString text{"default"};
   switch (state) {
-    case TicketStatus::Open:
-      text = "Open";
-      break;
-    case TicketStatus::Closed:
-      text = "Closed";
-      break;
-    case TicketStatus::Validated:
-      text = "Validated";
-      break;
-    case TicketStatus::InTest:
-      text = "InTest";
-      break;
-    case TicketStatus::InProgress:
-      text = "InProgress";
-      break;
-    case TicketStatus::Done:
-      text = "Done";
-      break;
-    case TicketStatus::Blocked:
-      text = "Blocked";
-      break;
-    case TicketStatus::UnderTDD:
-      text = "UnderTDD";
-      break;
+  case TicketStatus::Open:
+    text = "Open";
+    break;
+  case TicketStatus::Closed:
+    text = "Closed";
+    break;
+  case TicketStatus::Validated:
+    text = "Validated";
+    break;
+  case TicketStatus::InTest:
+    text = "InTest";
+    break;
+  case TicketStatus::InProgress:
+    text = "InProgress";
+    break;
+  case TicketStatus::Done:
+    text = "Done";
+    break;
+  case TicketStatus::Blocked:
+    text = "Blocked";
+    break;
+  case TicketStatus::UnderTDD:
+    text = "UnderTDD";
+    break;
   }
   return text;
 }
 
-TicketStatus ticketStatusToEnum(const QString& state) {
+TicketStatus ticketStatusToEnum(const QString &state) {
   if (state == "Open")
     return TicketStatus::Open;
   else if (state == "Closed")
@@ -172,4 +177,4 @@ TicketStatus ticketStatusToEnum(const QString& state) {
   return TicketStatus::Closed;
 }
 
-}  // namespace ticket
+} // namespace ticket

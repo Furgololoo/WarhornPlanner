@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QObject>
 
@@ -13,6 +14,7 @@ public slots:
   int getTicketColListSize() const;
 
   void setup();
+  QJsonArray getTickets(const quint8 columnIndex);
 
 signals:
   void updateBoard();
@@ -20,5 +22,7 @@ signals:
   void createTicket(const QJsonObject &data);
 
 private:
+  void groupTickets();
+  QVector<QJsonArray> groupedTickets;
   QJsonDocument doc;
 };

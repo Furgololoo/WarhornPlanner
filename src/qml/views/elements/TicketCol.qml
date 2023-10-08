@@ -6,11 +6,14 @@ Item {
     id: root
 
     property string title: "undefined"
+    property int columnIndex: 0
+
+    onColumnIndexChanged: console.log(columnIndex)
 
     Connections {
         target: BoardManager
         function onUpdateBoard() {
-            console.log("Ready called")
+            repeater.model = BoardManager.getTickets(columnIndex)
         }
     }
 
@@ -42,6 +45,7 @@ Item {
         Column {
             id: column
             anchors.fill: parent
+            spacing: Constants.SmallMargin
             anchors.margins: {
                 Constants.SmallMargin
                 Constants.SmallMargin
@@ -49,9 +53,15 @@ Item {
                 Constants.SmallMargin
             }
 
-            Ticket {
-                width: column.width
-                height: column.width * 0.8
+            Repeater {
+                id: repeater
+                anchors.fill: parent
+
+                Ticket {
+                    width: column.width
+                    height: column.width * 0.8
+                    data_json: modelData
+                }
             }
         }
     }

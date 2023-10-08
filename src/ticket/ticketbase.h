@@ -7,15 +7,17 @@
 namespace ticket {
 class TicketBase : public QQuickItem {
   Q_OBJECT
- public:
+public:
   TicketBase();
 
- public slots:
+public slots:
 
- signals:
+  void setData(const QJsonObject &data);
 
- private:
+signals:
+
+private:
   TicketInfo ticketInfo;
 };
 
-}  // namespace ticket
+} // namespace ticket

@@ -1,6 +1,10 @@
 #include "ticketbase.h"
 
+#include <QJsonObject>
+
 namespace ticket {
 TicketBase::TicketBase() {}
 
-}  // namespace ticket
+void TicketBase::setData(const QJsonObject &data) { qDebug() << data; }
+
+} // namespace ticket
