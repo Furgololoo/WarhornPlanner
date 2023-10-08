@@ -51,13 +51,14 @@ class TicketInfo : public QObject {
   Q_OBJECT
   friend class TicketBase;
 
- public:
+public:
   explicit TicketInfo(const QJsonObject &data);
 
- signals:
+signals:
   void readAll();
 
- private:
+private:
+  QString assigneeName;
   TicketPriority ticketPriority;
   QString title;
   QString description;
@@ -68,4 +69,4 @@ class TicketInfo : public QObject {
   TicketStatus status;
 };
 
-}  // namespace ticket
+} // namespace ticket

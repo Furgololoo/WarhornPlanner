@@ -13,6 +13,9 @@ Item {
             titleText.text = base.getTitle()
             priorityText.text = base.getPriority()
             componentText.text = base.getComponent()
+            timeText.text = base.getUpdateDate()
+            assigneeText.text = base.getAssigneeName()
+            priorityImage.setDotsCount(base.getPriorityInt())
         }
     }
 
@@ -39,9 +42,32 @@ Item {
 
         Text {
             id: priorityText
-//            anchors.top: titleText.bottom
-            anchors.verticalCenter: parent.verticalCenter
-//            anchors.topMargin: Constants.SmallMargin
+            anchors.top: titleText.bottom
+//            anchors.verticalCenter: parent.verticalCenter
+            anchors.topMargin: Constants.SmallMargin
+            anchors.left: parent.left
+            anchors.leftMargin: Constants.SmallMargin
+            width: 25
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            text: "undefined"
+            color: Colors.TextColor
+            font.pointSize: 14
+        }
+
+        PriorityImage {
+            id: priorityImage
+            anchors.top: priorityText.top
+            anchors.bottom: priorityText.bottom
+            anchors.left: priorityText.right
+            anchors.right: parent.right
+            anchors.leftMargin: Constants.SmallMargin
+        }
+
+        Text {
+            id: timeText
+            anchors.top: priorityText.bottom
+            anchors.topMargin: Constants.SmallMargin
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: Constants.SmallMargin
@@ -49,14 +75,14 @@ Item {
             verticalAlignment: Text.AlignVCenter
             text: "undefined"
             color: Colors.TextColor
-            font.pointSize: 14
+            font.pointSize: 12
             elide: Text.ElideRight
         }
 
         Text {
             id: componentText
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: Constants.SmallMargin
+            anchors.top: timeText.bottom
+            anchors.topMargin: Constants.SmallMargin
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: Constants.SmallMargin
@@ -64,7 +90,22 @@ Item {
             verticalAlignment: Text.AlignVCenter
             text: "undefined"
             color: Colors.TextColor
-            font.pointSize: 14
+            font.pointSize: 12
+            elide: Text.ElideRight
+        }
+
+        Text {
+            id: assigneeText
+            anchors.top: componentText.bottom
+            anchors.topMargin: Constants.SmallMargin
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: Constants.SmallMargin
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            text: "undefined"
+            color: Colors.TextColor
+            font.pointSize: 12
             elide: Text.ElideRight
         }
 

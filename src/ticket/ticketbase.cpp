@@ -5,6 +5,11 @@
 namespace ticket {
 TicketBase::TicketBase() {}
 
+QString TicketBase::getAssigneeName() const {
+  Q_ASSERT(ticketInfo);
+  return ticketInfo->assigneeName;
+}
+
 void TicketBase::setData(const QJsonObject &data) {
   ticketInfo = std::make_unique<TicketInfo>(data);
   emit ticketReadyToDisplay();
@@ -13,6 +18,11 @@ void TicketBase::setData(const QJsonObject &data) {
 QString TicketBase::getPriority() const {
   Q_ASSERT(ticketInfo);
   return ticketPriorityToString(ticketInfo->ticketPriority);
+}
+
+quint8 TicketBase::getPriorityInt() const {
+  Q_ASSERT(ticketInfo);
+  return static_cast<quint8>(ticketInfo->ticketPriority);
 }
 
 QString TicketBase::getTitle() const {
@@ -52,4 +62,4 @@ QString TicketBase::getTicketStatus() const {
   return ticketStatusToString(ticketInfo->status);
 }
 
-}  // namespace ticket
+} // namespace ticket

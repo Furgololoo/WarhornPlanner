@@ -8,11 +8,13 @@
 namespace ticket {
 class TicketBase : public QQuickItem {
   Q_OBJECT
- public:
+public:
   TicketBase();
 
- public slots:
+public slots:
+  QString getAssigneeName() const;
   QString getPriority() const;
+  quint8 getPriorityInt() const;
   QString getTitle() const;
   QString getDescription() const;
   //  QString getAssigneeUser() const;
@@ -24,11 +26,11 @@ class TicketBase : public QQuickItem {
 
   void setData(const QJsonObject &data);
 
- signals:
+signals:
   void ticketReadyToDisplay();
 
- private:
+private:
   std::unique_ptr<TicketInfo> ticketInfo;
 };
 
-}  // namespace ticket
+} // namespace ticket

@@ -15,6 +15,7 @@
         <file>views/elements/MenuPanel.qml</file>
         <file>views/elements/AppPanel.qml</file>
         <file>views/elements/UserImage.qml</file>
+        <file>views/elements/PriorityImage.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/dark/close.png</file>

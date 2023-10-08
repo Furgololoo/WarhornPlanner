@@ -18,6 +18,7 @@ void BoardManager::setup() {
     QJsonObject ticket1;
     QJsonObject body;
     QJsonObject usersInfo;
+    usersInfo["assignee_name"] = "Szkuti";
     usersInfo["assignee_id"] = "3";
     usersInfo["reporter_id"] = "2";
     usersInfo["implementer_id"] = "1";
@@ -50,6 +51,7 @@ void BoardManager::setup() {
     QJsonObject ticket2;
     QJsonObject body;
     QJsonObject usersInfo;
+    usersInfo["assignee_name"] = "Bartek";
     usersInfo["assignee_id"] = "1";
     usersInfo["reporter_id"] = "1";
     usersInfo["implementer_id"] = "3";
@@ -82,6 +84,7 @@ void BoardManager::setup() {
     QJsonObject ticket3;
     QJsonObject body;
     QJsonObject usersInfo;
+    usersInfo["assignee_name"] = "Krawiec";
     usersInfo["assignee_id"] = "2";
     usersInfo["reporter_id"] = "1";
     usersInfo["implementer_id"] = "1";
@@ -114,6 +117,7 @@ void BoardManager::setup() {
     QJsonObject ticket3;
     QJsonObject body;
     QJsonObject usersInfo;
+    usersInfo["assignee_name"] = "Krzysiek";
     usersInfo["assignee_id"] = "3";
     usersInfo["reporter_id"] = "3";
     usersInfo["implementer_id"] = "2";
@@ -153,6 +157,7 @@ void BoardManager::setup() {
     QJsonObject ticket3;
     QJsonObject body;
     QJsonObject usersInfo;
+    usersInfo["assignee_name"] = "Animator";
     usersInfo["assignee_id"] = "1";
     usersInfo["reporter_id"] = "3";
     usersInfo["implementer_id"] = "2";
@@ -179,7 +184,7 @@ void BoardManager::setup() {
     ticketData["component"] =
         ticket::ticketComponentsToString(ticket::TicketComponents::Animations);
     ticketData["priority"] =
-        ticket::ticketPriorityToString(ticket::TicketPriority::P2);
+        ticket::ticketPriorityToString(ticket::TicketPriority::P5);
     ticketData["status"] =
         ticket::ticketStatusToString(ticket::TicketStatus::InTest);
     body["ticket_data"] = ticketData;
