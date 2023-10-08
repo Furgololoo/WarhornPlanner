@@ -42,25 +42,36 @@ Item {
         anchors.right: parent.right
         color: Colors.MainBG
 
-        Column {
-            id: column
+        Flickable {
+            id: flickable
             anchors.fill: parent
-            spacing: Constants.SmallMargin
-            anchors.margins: {
-                Constants.SmallMargin
-                Constants.SmallMargin
-                Constants.SmallMargin
-                Constants.SmallMargin
-            }
+            contentHeight: column.implicitHeight
+            contentWidth: parent.width
 
-            Repeater {
-                id: repeater
-                anchors.fill: parent
+            boundsBehavior: Flickable.StopAtBounds
+            interactive: true
+            clip: true
 
-                Ticket {
-                    width: column.width
-                    height: column.width * 0.6
-                    data_json: modelData
+            Column {
+                id: column
+                anchors.fill : parent
+                anchors.margins: {
+                    Constants.SmallMargin
+                    Constants.SmallMargin
+                    Constants.SmallMargin
+                    Constants.SmallMargin
+                }
+                spacing: Constants.SmallMargin
+
+                Repeater {
+                    id: repeater
+                    anchors.fill: parent
+
+                    Ticket {
+                        width: column.width
+                        height: column.width * 0.6
+                        data_json: modelData
+                    }
                 }
             }
         }
