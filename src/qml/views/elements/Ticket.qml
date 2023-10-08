@@ -11,6 +11,8 @@ Item {
         id: base
         onTicketReadyToDisplay: {
             titleText.text = base.getTitle()
+            priorityText.text = base.getPriority()
+            componentText.text = base.getComponent()
         }
     }
 
@@ -31,7 +33,38 @@ Item {
             verticalAlignment: Text.AlignVCenter
             text: "undefined"
             color: Colors.TextColor
-            font.pointSize: 13
+            font.pointSize: 14
+            elide: Text.ElideRight
+        }
+
+        Text {
+            id: priorityText
+//            anchors.top: titleText.bottom
+            anchors.verticalCenter: parent.verticalCenter
+//            anchors.topMargin: Constants.SmallMargin
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: Constants.SmallMargin
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            text: "undefined"
+            color: Colors.TextColor
+            font.pointSize: 14
+            elide: Text.ElideRight
+        }
+
+        Text {
+            id: componentText
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: Constants.SmallMargin
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: Constants.SmallMargin
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            text: "undefined"
+            color: Colors.TextColor
+            font.pointSize: 14
             elide: Text.ElideRight
         }
 

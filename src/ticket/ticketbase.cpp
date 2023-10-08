@@ -10,9 +10,9 @@ void TicketBase::setData(const QJsonObject &data) {
   emit ticketReadyToDisplay();
 }
 
-TicketPriority TicketBase::getPriority() const {
+QString TicketBase::getPriority() const {
   Q_ASSERT(ticketInfo);
-  return ticketInfo->ticketPriority;
+  return ticketPriorityToString(ticketInfo->ticketPriority);
 }
 
 QString TicketBase::getTitle() const {
@@ -32,9 +32,9 @@ QString TicketBase::getDescription() const {
 //   return assigneeUser.getImage();
 // }
 
-TicketComponents TicketBase::getComponent() const {
+QString TicketBase::getComponent() const {
   Q_ASSERT(ticketInfo);
-  return ticketInfo->component;
+  return ticketComponentsToString(ticketInfo->component);
 }
 
 QString TicketBase::getCreateDate() const {
@@ -47,9 +47,9 @@ QString TicketBase::getUpdateDate() const {
   return ticketInfo->updateDate;
 }
 
-TicketStatus TicketBase::getTicketStatus() const {
+QString TicketBase::getTicketStatus() const {
   Q_ASSERT(ticketInfo);
-  return ticketInfo->status;
+  return ticketStatusToString(ticketInfo->status);
 }
 
 }  // namespace ticket

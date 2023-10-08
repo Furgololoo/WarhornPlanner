@@ -12,15 +12,15 @@ class TicketBase : public QQuickItem {
   TicketBase();
 
  public slots:
-  TicketPriority getPriority() const;
+  QString getPriority() const;
   QString getTitle() const;
   QString getDescription() const;
   //  QString getAssigneeUser() const;
   //  QImage getAssigneeUserImage() const;
-  TicketComponents getComponent() const;
+  QString getComponent() const;
   QString getCreateDate() const;
   QString getUpdateDate() const;
-  TicketStatus getTicketStatus() const;
+  QString getTicketStatus() const;
 
   void setData(const QJsonObject &data);
 

@@ -59,7 +59,7 @@ Item {
 
                 Ticket {
                     width: column.width
-                    height: column.width * 0.8
+                    height: column.width * 0.6
                     data_json: modelData
                 }
             }

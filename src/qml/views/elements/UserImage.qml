@@ -1,8 +1,8 @@
 import QtQuick
 
 Item {
-    width: 45
-    height: 45
+    width: 55
+    height: 55
 
         Image {
             id: userImg
