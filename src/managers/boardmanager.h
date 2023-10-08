@@ -5,18 +5,20 @@
 
 class BoardManager : public QObject {
   Q_OBJECT
- public:
+public:
   explicit BoardManager();
 
- public slots:
+public slots:
   QStringList getTicketColList() const;
   int getTicketColListSize() const;
 
   void setup();
 
- signals:
+signals:
   void updateBoard();
 
- private:
+  void createTicket(const QJsonObject &data);
+
+private:
   QJsonDocument doc;
 };

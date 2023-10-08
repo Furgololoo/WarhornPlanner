@@ -110,6 +110,84 @@ void BoardManager::setup() {
     array.append(ticket3);
   }
 
+  {
+    QJsonObject ticket3;
+    QJsonObject body;
+    QJsonObject usersInfo;
+    usersInfo["assignee_id"] = "3";
+    usersInfo["reporter_id"] = "3";
+    usersInfo["implementer_id"] = "2";
+    body["users_info"] = usersInfo;
+
+    QJsonObject ticketData;
+    ticketData["title"] = "Create Wolf 3D model";
+    ticketData["description"] =
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do "
+        "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim "
+        "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+        "aliquip ex ea commodo consequat. Duis aute irure dolor in "
+        "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+        "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+        "culpa qui officia deserunt mollit anim id est laborum.";
+    QDate createDate(2023, 9, 28);
+    QTime createTime(21, 01, 29);
+    QDate updateDate(2023, 9, 30);
+    QTime updateTime(9, 14, 53);
+    ticketData["create_date"] = createDate.toString();
+    ticketData["create_hour"] = createTime.toString();
+    ticketData["update_date"] = updateDate.toString();
+    ticketData["update_hour"] = updateTime.toString();
+    ticketData["component"] =
+        ticket::ticketComponentsToString(ticket::TicketComponents::Model3D);
+    ticketData["priority"] =
+        ticket::ticketPriorityToString(ticket::TicketPriority::P1);
+    ticketData["status"] =
+        ticket::ticketStatusToString(ticket::TicketStatus::InTest);
+    body["ticket_data"] = ticketData;
+
+    ticket3["ticket"] = body;
+    array.append(ticket3);
+  }
+
+  {
+    QJsonObject ticket3;
+    QJsonObject body;
+    QJsonObject usersInfo;
+    usersInfo["assignee_id"] = "1";
+    usersInfo["reporter_id"] = "3";
+    usersInfo["implementer_id"] = "2";
+    body["users_info"] = usersInfo;
+
+    QJsonObject ticketData;
+    ticketData["title"] = "Create animations for Pig";
+    ticketData["description"] =
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do "
+        "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim "
+        "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+        "aliquip ex ea commodo consequat. Duis aute irure dolor in "
+        "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+        "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+        "culpa qui officia deserunt mollit anim id est laborum.";
+    QDate createDate(2023, 10, 1);
+    QTime createTime(23, 12, 23);
+    QDate updateDate(2023, 10, 2);
+    QTime updateTime(13, 15, 2);
+    ticketData["create_date"] = createDate.toString();
+    ticketData["create_hour"] = createTime.toString();
+    ticketData["update_date"] = updateDate.toString();
+    ticketData["update_hour"] = updateTime.toString();
+    ticketData["component"] =
+        ticket::ticketComponentsToString(ticket::TicketComponents::Animations);
+    ticketData["priority"] =
+        ticket::ticketPriorityToString(ticket::TicketPriority::P2);
+    ticketData["status"] =
+        ticket::ticketStatusToString(ticket::TicketStatus::InTest);
+    body["ticket_data"] = ticketData;
+
+    ticket3["ticket"] = body;
+    array.append(ticket3);
+  }
+
   doc.setArray(array);
   emit updateBoard();
 }
