@@ -9,6 +9,9 @@ Item {
 
     TicketBase {
         id: base
+        onTicketReadyToDisplay: {
+            titleText.text = base.getTitle()
+        }
     }
 
     onData_jsonChanged: base.setData(data_json)
@@ -18,15 +21,17 @@ Item {
         color: Colors.SubtleAccent
 
         Text {
+            id: titleText
             anchors.top: parent.top
+            anchors.topMargin: Constants.SmallMargin
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: Constants.SmallMargin
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
-            text: "Testowy tytul notki, abcdasd, asdasdh, sadkjhsakjdhakjsdhkja"
+            text: "undefined"
             color: Colors.TextColor
-            font.pointSize: 12
+            font.pointSize: 13
             elide: Text.ElideRight
         }
 

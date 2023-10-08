@@ -51,31 +51,21 @@ class TicketInfo : public QObject {
   Q_OBJECT
   friend class TicketBase;
 
-public:
-  explicit TicketInfo();
+ public:
+  explicit TicketInfo(const QJsonObject &data);
 
-  TicketPriority getPriority() const;
-  QString getTitle() const;
-  QString getDescription() const;
-  QString getAssigneeUser() const;
-  QImage getAssigneeUserImage() const;
-  TicketComponents getComponent() const;
-  QDate getCreateDate() const;
-  QDate getUpdateDate() const;
-  TicketStatus getTicketStatus() const;
-
-signals:
+ signals:
   void readAll();
 
-private:
+ private:
   TicketPriority ticketPriority;
   QString title;
   QString description;
-  user::User assigneeUser;
+  //  user::User assigneeUser;
   TicketComponents component;
-  QDate createDate;
-  QDate updateDate;
+  QString createDate;
+  QString updateDate;
   TicketStatus status;
 };
 
-} // namespace ticket
+}  // namespace ticket

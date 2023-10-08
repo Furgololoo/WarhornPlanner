@@ -31,9 +31,9 @@ void BoardManager::setup() {
     QDate updateDate(2023, 10, 6);
     QTime updateTime(15, 11, 7);
     ticketData["create_date"] = createDate.toString();
-    ticketData["create_hour"] = createTime.toString();
+    ticketData["create_time"] = createTime.toString();
     ticketData["update_date"] = updateDate.toString();
-    ticketData["update_hour"] = updateTime.toString();
+    ticketData["update_time"] = updateTime.toString();
     ticketData["component"] =
         ticket::ticketComponentsToString(ticket::TicketComponents::Code);
     ticketData["priority"] =
@@ -63,9 +63,9 @@ void BoardManager::setup() {
     QDate updateDate(2023, 10, 7);
     QTime updateTime(16, 27, 37);
     ticketData["create_date"] = createDate.toString();
-    ticketData["create_hour"] = createTime.toString();
+    ticketData["create_time"] = createTime.toString();
     ticketData["update_date"] = updateDate.toString();
-    ticketData["update_hour"] = updateTime.toString();
+    ticketData["update_time"] = updateTime.toString();
     ticketData["component"] =
         ticket::ticketComponentsToString(ticket::TicketComponents::Code);
     ticketData["priority"] =
@@ -95,9 +95,9 @@ void BoardManager::setup() {
     QDate updateDate(2023, 10, 7);
     QTime updateTime(17, 37, 59);
     ticketData["create_date"] = createDate.toString();
-    ticketData["create_hour"] = createTime.toString();
+    ticketData["create_time"] = createTime.toString();
     ticketData["update_date"] = updateDate.toString();
-    ticketData["update_hour"] = updateTime.toString();
+    ticketData["update_time"] = updateTime.toString();
     ticketData["component"] =
         ticket::ticketComponentsToString(ticket::TicketComponents::DevLog);
     ticketData["priority"] =
@@ -134,9 +134,9 @@ void BoardManager::setup() {
     QDate updateDate(2023, 9, 30);
     QTime updateTime(9, 14, 53);
     ticketData["create_date"] = createDate.toString();
-    ticketData["create_hour"] = createTime.toString();
+    ticketData["create_time"] = createTime.toString();
     ticketData["update_date"] = updateDate.toString();
-    ticketData["update_hour"] = updateTime.toString();
+    ticketData["update_time"] = updateTime.toString();
     ticketData["component"] =
         ticket::ticketComponentsToString(ticket::TicketComponents::Model3D);
     ticketData["priority"] =
@@ -173,9 +173,9 @@ void BoardManager::setup() {
     QDate updateDate(2023, 10, 2);
     QTime updateTime(13, 15, 2);
     ticketData["create_date"] = createDate.toString();
-    ticketData["create_hour"] = createTime.toString();
+    ticketData["create_time"] = createTime.toString();
     ticketData["update_date"] = updateDate.toString();
-    ticketData["update_hour"] = updateTime.toString();
+    ticketData["update_time"] = updateTime.toString();
     ticketData["component"] =
         ticket::ticketComponentsToString(ticket::TicketComponents::Animations);
     ticketData["priority"] =
