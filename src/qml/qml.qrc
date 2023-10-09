@@ -16,6 +16,11 @@
         <file>views/elements/AppPanel.qml</file>
         <file>views/elements/UserImage.qml</file>
         <file>views/elements/PriorityImage.qml</file>
+        <file>views/Account.qml</file>
+        <file>views/Backlog.qml</file>
+        <file>views/CreateTicket.qml</file>
+        <file>views/Settings.qml</file>
+        <file>views/elements/TicketHighlighter.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/dark/close.png</file>

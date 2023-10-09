@@ -31,16 +31,18 @@ Window {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: Constants.BigMargin
             anchors.left: parent.left
+            onChangeWindow: (windowUrl) => loader.source = window
         }
 
-        Board {
-            id: board
+        Loader {
+            id: loader
             anchors.top: appPanel.bottom
             anchors.bottom: parent.bottom
             anchors.bottomMargin: Constants.BigMargin
             anchors.left: menuPanel.right
             anchors.leftMargin: Constants.BigMargin
             anchors.right: parent.right
+            source: "qrc:/views/Board.qml"
         }
     }
 }

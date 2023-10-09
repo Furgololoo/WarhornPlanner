@@ -5,7 +5,7 @@ import "../config/Constants.js" as Constants
 
 Item {
     id: root
-
+    anchors.fill: parent
     Rectangle {
         id: mainRect
         anchors.fill: parent

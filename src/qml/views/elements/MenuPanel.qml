@@ -10,6 +10,8 @@ Item {
     property bool is_open: false
     property int icon_width: 0
 
+    signal changeWindow(url window)
+
     Rectangle {
         anchors.fill: parent
         color: Colors.MainBG
@@ -33,6 +35,8 @@ Item {
             anchors.right: parent.right
             height: (icon_width * 1.5) - 3
             color: Colors.MainBG
+            z: 3
+
 
             Image {
                 id: boardImg
@@ -58,6 +62,10 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
+                onPressed: {
+                        changeWindow("qrc:/views/Board.qml")
+                }
+
                 onHoveredChanged: {
                     if(containsMouse)
                         boardButton.color = Colors.MainBGDarker
@@ -101,6 +109,10 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
+                onPressed: {
+                        changeWindow("qrc:/views/Backlog.qml")
+                }
+
                 onHoveredChanged: {
                     if(containsMouse)
                         backlogButton.color = Colors.MainBGDarker
@@ -144,6 +156,10 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
+                onPressed: {
+                        changeWindow("qrc:/views/CreateTicket.qml")
+                }
+
                 onHoveredChanged: {
                     if(containsMouse)
                         createTicketButton.color = Colors.MainBGDarker
@@ -187,6 +203,10 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
+                onPressed: {
+                        changeWindow("qrc:/views/Account.qml")
+                }
+
                 onHoveredChanged: {
                     if(containsMouse)
                         accountButton.color = Colors.MainBGDarker
@@ -229,7 +249,11 @@ Item {
 
             MouseArea {
                 anchors.fill: parent
-                hoverEnabled: true
+                hoverEnabled: true                
+                onPressed: {
+                        changeWindow("qrc:/views/Settings.qml")
+                }
+
                 onHoveredChanged: {
                     if(containsMouse)
                         settingsButton.color = Colors.MainBGDarker

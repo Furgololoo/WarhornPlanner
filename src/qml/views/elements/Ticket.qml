@@ -1,11 +1,19 @@
 import QtQuick
+import QtQuick.Effects
 import "../../config/Colors.js" as Colors
 import "../../config/Constants.js" as Constants
 import CustomElements
 
 Item {
-
+    id: root
     property var data_json: []
+
+    signal hoverBegin()
+    signal hoverEnd()
+
+    function getPriorityColor() {
+        return priorityImage.getColor()
+    }
 
     TicketBase {
         id: base
@@ -22,8 +30,10 @@ Item {
     onData_jsonChanged: base.setData(data_json)
 
     Rectangle {
+        id: mainRect
         anchors.fill: parent
         color: Colors.SubtleAccent
+        z: 3
 
         Text {
             id: titleText
@@ -43,7 +53,7 @@ Item {
         Text {
             id: priorityText
             anchors.top: titleText.bottom
-//            anchors.verticalCenter: parent.verticalCenter
+            //            anchors.verticalCenter: parent.verticalCenter
             anchors.topMargin: Constants.SmallMargin
             anchors.left: parent.left
             anchors.leftMargin: Constants.SmallMargin
@@ -115,5 +125,17 @@ Item {
             anchors.bottomMargin: Constants.SmallMargin
             anchors.bottom: parent.bottom
         }
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onHoveredChanged: {
+                if(containsMouse)
+                    root.hoverBegin()
+                else
+                    root.hoverEnd()
+            }
+        }
     }
 }
+

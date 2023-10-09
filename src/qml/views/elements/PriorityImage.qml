@@ -15,6 +15,10 @@ Item {
         }
     }
 
+    function getColor() {
+        return dotsColor
+    }
+
     Row {
         anchors.fill: parent
         spacing: Constants.SmallMargin
