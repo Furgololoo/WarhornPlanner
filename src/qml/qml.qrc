@@ -20,7 +20,8 @@
         <file>views/Backlog.qml</file>
         <file>views/CreateTicket.qml</file>
         <file>views/Settings.qml</file>
-        <file>views/elements/TicketHighlighter.qml</file>
+        <file>views/elements/Highlighter.qml</file>
+        <file>views/custom/DropDown.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/dark/close.png</file>
@@ -42,5 +43,9 @@
         <file>icons/light/board.png</file>
         <file>icons/light/settings.png</file>
         <file>icons/shrek.png</file>
+        <file>icons/dark/less.png</file>
+        <file>icons/dark/more.png</file>
+        <file>icons/light/less.png</file>
+        <file>icons/light/more.png</file>
     </qresource>
 </RCC>

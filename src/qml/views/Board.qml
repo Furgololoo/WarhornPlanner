@@ -27,5 +27,6 @@ Item {
                 }
             }
         }
+        Component.onCompleted: BoardManager.showTickets()
     }
 }

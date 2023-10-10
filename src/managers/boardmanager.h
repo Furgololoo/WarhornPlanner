@@ -13,6 +13,8 @@ public slots:
   QStringList getTicketColList() const;
   int getTicketColListSize() const;
 
+  void showTickets();
+
   void setup();
   QJsonArray getTickets(const quint8 columnIndex);
 

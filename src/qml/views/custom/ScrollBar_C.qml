@@ -1,6 +1,6 @@
-import QtQuick 2.15
+import QtQuick
 
-import "qrc:/scripts/Colors.js" as Colors
+import "../../config/Colors.js" as Colors
 
 Item {
     id: root
@@ -32,8 +32,8 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Colors.SubtleAccent
-        radius: width / 4
+        color: Colors.MainBGDarker
+//        radius: width / 4
 
         Rectangle {
             id: handle
@@ -42,8 +42,8 @@ Item {
             width: parent.width * 0.9
             height: handleSize
 
-            radius: width / 4
-            color: Colors.MainAccent
+//            radius: width / 4
+            color: Colors.Blue
 
             MouseArea {
                 anchors.fill: parent

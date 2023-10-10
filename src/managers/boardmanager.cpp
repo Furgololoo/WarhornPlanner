@@ -226,3 +226,5 @@ QStringList BoardManager::getTicketColList() const {
 int BoardManager::getTicketColListSize() const {
   return kTicketColNames.size();
 }
+
+void BoardManager::showTickets() { setup(); }

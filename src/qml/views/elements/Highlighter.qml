@@ -7,6 +7,7 @@ Item {
     id: root
 
     property bool is_visible: false
+    property color box_color: Colors.MainAccent
 
     function setPosition(obj: Ticket) {
         is_visible = true
@@ -18,7 +19,7 @@ Item {
     Rectangle {
         id: box
         anchors.fill: parent
-        color: Colors.Red
+        color: box_color
         visible: is_visible
     }
     MultiEffect {

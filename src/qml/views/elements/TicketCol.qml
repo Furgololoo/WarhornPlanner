@@ -52,7 +52,7 @@ Item {
             interactive: true
             clip: true
 
-            TicketHighlighter {
+            Highlighter {
                 id: highlighter
                 width: column.width
                 height: column.width * 0.6
@@ -87,50 +87,3 @@ Item {
         }
     }
 }
-
-//Rectangle {
-//    id: topSign
-//    anchors.top: mainRect.top
-//    width: parent.width //* 0.8
-//    anchors.horizontalCenter: parent.horizontalCenter
-//    height: 10
-//    visible: false
-//    color: "#FFFFFF"
-//    z: 2
-//}
-//MultiEffect {
-//    id: effect
-//    visible: (flickable.contentY != 0 && column.height > flickable.height)
-//    source: topSign
-//    anchors.fill: topSign
-//    brightness: 1
-//    shadowScale: 5
-//    shadowVerticalOffset: 0
-//    shadowBlur: 64
-//    blurEnabled: true
-//    blurMax: 128
-//    blur: 0.5
-//}
-
-//Rectangle {
-//    id: bottomSign
-//    anchors.top: mainRect.bottom
-//    width: parent.width
-//    anchors.horizontalCenter: parent.horizontalCenter
-//    height: 10
-//    visible: false
-//    color: "#FFFFFF"
-//    z: 2
-//}
-//MultiEffect {
-//    visible: ((flickable.contentY + flickable.height) <= column.height && column.height > flickable.height)
-//    source: bottomSign
-//    anchors.fill: bottomSign
-//    brightness: 1
-//    shadowScale: 5
-//    shadowVerticalOffset: -1
-//    shadowBlur: 128
-//    blurEnabled: true
-//    blurMax: 128
-//    blur: 1.0
-//}

@@ -31,7 +31,8 @@ Window {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: Constants.BigMargin
             anchors.left: parent.left
-            onChangeWindow: (windowUrl) => loader.source = window
+            onChangeWindow: (windowUrl) => loader.source = windowUrl
+            z: 2
         }
 
         Loader {
@@ -39,10 +40,11 @@ Window {
             anchors.top: appPanel.bottom
             anchors.bottom: parent.bottom
             anchors.bottomMargin: Constants.BigMargin
-            anchors.left: menuPanel.right
-            anchors.leftMargin: Constants.BigMargin
+            anchors.left: parent.left
+            anchors.leftMargin: Constants.BigMargin + 40
             anchors.right: parent.right
-            source: "qrc:/views/Board.qml"
+            source: "qrc:/views/Backlog.qml"
+            z: 1
         }
     }
 }

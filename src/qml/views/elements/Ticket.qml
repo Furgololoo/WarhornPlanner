@@ -33,7 +33,6 @@ Item {
         id: mainRect
         anchors.fill: parent
         color: Colors.SubtleAccent
-        z: 3
 
         Text {
             id: titleText
@@ -53,7 +52,6 @@ Item {
         Text {
             id: priorityText
             anchors.top: titleText.bottom
-            //            anchors.verticalCenter: parent.verticalCenter
             anchors.topMargin: Constants.SmallMargin
             anchors.left: parent.left
             anchors.leftMargin: Constants.SmallMargin
