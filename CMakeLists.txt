@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 20)
 
 
-find_package(Qt6 6.2 COMPONENTS Quick Sql REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Quick WebSockets REQUIRED)
 
 qt_add_executable(appWarhornPlanner
 
@@ -41,7 +41,7 @@ set_target_properties(appWarhornPlanner PROPERTIES
 )
 
 target_link_libraries(appWarhornPlanner
-    PRIVATE Qt6::Quick Qt6::Sql)
+    PRIVATE Qt6::Quick Qt6::WebSockets)
 
 install(TARGETS appWarhornPlanner
     BUNDLE DESTINATION .

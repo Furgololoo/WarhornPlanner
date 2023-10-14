@@ -9,7 +9,12 @@
 
 #include "ticket/ticketinfo.h"
 
-Coffey::Coffey(QObject *parent) : QObject{parent} {}
+Coffey::Coffey(QObject *parent) : QObject{parent} {
+  QUrl url;
+  url.setHost("127.0.0.1");
+  url.setPort(9999);
+  networkManager = std::make_unique<network::NetworkManager>(url);
+}
 
 void Coffey::test() {
   //  QJsonArray array;

@@ -24,7 +24,7 @@ signals:
 private:
   std::shared_ptr<AccountManager> accountManager;
   std::shared_ptr<BoardManager> boardManager;
-  std::shared_ptr<NetworkManager> networkManager;
+  std::shared_ptr<network::NetworkManager> networkManager;
 };
 
 #endif // OBJECTMANAGER_H

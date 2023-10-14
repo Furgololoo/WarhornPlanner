@@ -6,7 +6,12 @@
 ObjectManager::ObjectManager(QObject *parent) : QObject{parent} {
   accountManager = std::make_shared<AccountManager>();
   boardManager = std::make_shared<BoardManager>();
-  networkManager = std::make_shared<NetworkManager>();
+
+  QUrl url;
+  //  url.setScheme(u"wss"_s);
+  url.setHost("127.0.0.1");
+  url.setPort(9999);
+  networkManager = std::make_shared<network::NetworkManager>(url);
 }
 
 void ObjectManager::setContextProperty(QQmlApplicationEngine &engine) {

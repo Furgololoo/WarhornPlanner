@@ -9,17 +9,17 @@
 
 class Coffey : public QObject {
   Q_OBJECT
- public:
+public:
   explicit Coffey(QObject *parent = nullptr);
 
   BoardManager *getBoardManager() { return &board; };
 
   void test();
 
- signals:
+signals:
 
- private:
-  std::unique_ptr<NetworkManager> network;
+private:
+  std::unique_ptr<network::NetworkManager> networkManager;
   std::unique_ptr<AccountManager> account;
   BoardManager board;
 };
