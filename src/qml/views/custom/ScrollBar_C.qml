@@ -15,6 +15,7 @@ Item {
             handleSize = minHandleSize
         else
             handleSize = background.height / _ratio
+
     }
 
     function moveSlider(yVal) {

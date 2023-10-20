@@ -1,7 +1,7 @@
 import QtQuick
 
-import "qrc:/scripts/Colors.js" as Colors
-import "qrc:/scripts/Constants.js" as Constants
+import "qrc:/config/Colors.js" as Colors
+import "qrc:/config/Constants.js" as Constants
 
 Item {
     id: root
@@ -20,47 +20,19 @@ Item {
         id: rect
         anchors.fill: parent
         color: Colors.MainBGDarker
-        border.width: 2
+        border.width: 1
         border.color: Colors.SubtleAccent
-
-        Item {
-            id: plus
-            height: parent.height
-            width: rect.width - mainText.width - mainText.anchors.rightMargin
-            anchors.left: parent.left
-
-            Rectangle {
-                id: horizontalLine
-                color: Colors.MainAccent
-                width: parent.width * 0.45
-                height: 3
-                anchors.centerIn: parent
-            }
-
-            Rectangle {
-                id: verticalLine
-                color: Colors.MainAccent
-                height: parent.width * 0.45
-                width: 3
-                anchors.centerIn: parent
-            }
-        }
 
         Text {
             id: mainText
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            anchors.rightMargin: Constants.marginSize()
-            text: qsTr("   Algorithm")
+            anchors.fill: parent
+            text: qsTr("Save")
             font.bold: true
-            font.pointSize: root.height / 2
+            font.pointSize: 20
             color: Colors.MainAccent
 
-            width: contentWidth
-
             horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
+            verticalAlignment: Text.AlignVCenter
         }
 
         MouseArea {

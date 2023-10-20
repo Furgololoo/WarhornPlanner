@@ -93,6 +93,9 @@ QString ticketComponentsToString(const TicketComponents &state) {
   case TicketComponents::Code:
     text = "Code";
     break;
+  case TicketComponents::Art:
+    text = "Art";
+    break;
   case TicketComponents::Other:
     text = "Other";
     break;
@@ -119,6 +122,8 @@ TicketComponents ticketComponentsToEnum(const QString &state) {
     return TicketComponents::Engine;
   else if (state == "Team")
     return TicketComponents::Team;
+  else if (state == "Art")
+    return TicketComponents::Art;
 
   return TicketComponents::Other;
 }
@@ -173,6 +178,31 @@ TicketStatus ticketStatusToEnum(const QString &state) {
     return TicketStatus::UnderTDD;
 
   return TicketStatus::Closed;
+}
+
+QString ticketTypeToString(const TicketType &state) {
+  QString text{"Bug"};
+  switch (state) {
+  case TicketType::Epic:
+    text = "Epic";
+    break;
+  case TicketType::Story:
+    text = "Story";
+    break;
+  case TicketType::Bug:
+    text = "Bug";
+    break;
+  }
+  return text;
+}
+
+TicketType ticketTypeToEnum(const QString &state) {
+  if (state == "Epic")
+    return TicketType::Epic;
+  else if (state == "Story")
+    return TicketType::Story;
+
+  return TicketType::Bug;
 }
 
 } // namespace ticket

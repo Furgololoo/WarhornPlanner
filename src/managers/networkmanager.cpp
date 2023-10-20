@@ -1,6 +1,8 @@
 #include "networkmanager.h"
 
 #include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QtGlobal>
 
 namespace network {
@@ -28,7 +30,13 @@ void NetworkManager::startSession(const QUrl &url) {
 }
 
 void NetworkManager::closeSession() {
-  if (webSocket.state() == QAbstractSocket::ConnectedState) webSocket.close();
+  //  QJsonObject closeRequest;
+  //  closeRequest["action"] = 16;
+  //  QJsonDocument document(closeRequest);
+
+  //  webSocket.sendTextMessage();
+  //  if (webSocket.state() == QAbstractSocket::ConnectedState)
+  //    webSocket.close();
 }
 
 void NetworkManager::onConnected() {
@@ -48,16 +56,16 @@ void NetworkManager::onRead(QString mess) {
   static int counter = 0;
   qDebug() << "Message received: " << mess;
   counter++;
-  if (counter >= 3)
-    closeSession();
-  else {
-    qDebug() << "Sending message: ";
+  if (counter <= 2)
+    //    closeSession();
+    //  else {
+    //    qDebug() << "Sending message: ";
     webSocket.sendTextMessage(QStringLiteral("Hello, world!"));
-  }
+  //  }
 }
 
 void NetworkManager::onSslErrors(const QList<QSslError> &errors) {
   qWarning() << "SSL errors:" << errors;
 }
 
-}  // namespace network
+} // namespace network

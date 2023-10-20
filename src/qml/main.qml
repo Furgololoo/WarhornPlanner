@@ -43,7 +43,7 @@ Window {
             anchors.left: parent.left
             anchors.leftMargin: Constants.BigMargin + 40
             anchors.right: parent.right
-            source: "qrc:/views/Backlog.qml"
+            source: "qrc:/views/Account.qml"
             z: 1
         }
     }

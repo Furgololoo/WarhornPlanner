@@ -8,6 +8,12 @@
 
 namespace ticket {
 
+enum class TicketType : quint8 {
+  Epic = 0x0,
+  Story = 0x1,
+  Bug = 0x2,
+};
+
 enum class TicketPriority : quint8 {
   Undefined = 0x0,
   P1 = 0x1,
@@ -26,7 +32,8 @@ enum class TicketComponents : quint8 {
   Engine = 0x6,
   Team = 0x7,
   Code = 0x8,
-  Other = 0x9
+  Art = 0x9,
+  Other = 0xA
 };
 
 enum class TicketStatus : quint8 {
@@ -40,6 +47,8 @@ enum class TicketStatus : quint8 {
   Closed = 0x7
 };
 
+QString ticketTypeToString(const TicketType &state);
+TicketType ticketTypeToEnum(const QString &state);
 QString ticketPriorityToString(const TicketPriority &state);
 TicketPriority ticketPriorityToEnum(const QString &state);
 QString ticketComponentsToString(const TicketComponents &state);

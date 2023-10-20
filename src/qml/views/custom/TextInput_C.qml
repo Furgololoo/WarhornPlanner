@@ -1,11 +1,17 @@
 import QtQuick
-
-import "qrc:/scripts/Colors.js" as Colors
+import "qrc:/config/Colors.js" as Colors
 
 Item {
+    id: root
+
+    property int fontSize: 12
 
     function setText(text: string) {
         input.text = text
+    }
+
+    function lostFocus() {
+        input.focus = false
     }
 
     signal textChanged(text: string)
@@ -13,9 +19,9 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Colors.SubtleAccent
+        color: Colors.MainBG
         border.width: 1
-        border.color: Colors.MainBGDarker
+        border.color: Colors.SubtleAccent
 
         TextInput {
             id: input
@@ -27,7 +33,7 @@ Item {
 
             activeFocusOnPress: true
             selectByMouse: true
-            font.pointSize: 12
+            font.pointSize: root.fontSize
 
             onEditingFinished: input.focus = false
 
@@ -36,8 +42,8 @@ Item {
                     background.border.color = Colors.MainAccent
                 }
                 else {
-                    background.border.color = Colors.MainBGDarker
-                    textChanged(input.text)
+                    background.border.color = Colors.SubtleAccent
+                    root.textChanged(input.text)
                 }
             }
         }
