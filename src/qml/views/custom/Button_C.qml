@@ -6,6 +6,8 @@ import "qrc:/config/Constants.js" as Constants
 Item {
     id: root
 
+    property string baseText: "default"
+
     signal pressedButton()
 
     function enableHover() {
@@ -26,12 +28,13 @@ Item {
         Text {
             id: mainText
             anchors.fill: parent
-            text: qsTr("Save")
+            anchors.leftMargin: Constants.BigMargin * 2
+            text: baseText
             font.bold: true
             font.pointSize: 20
             color: Colors.MainAccent
 
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
         }
 

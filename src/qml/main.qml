@@ -9,8 +9,8 @@ Window {
     title: qsTr("Coffey")
     visibility: Qt.WindowFullScreen
     visible: true
-    width: 1400
-    height: 800
+    width: 1920
+    height: 1080
 
     Rectangle {
         anchors.fill: parent
@@ -43,7 +43,7 @@ Window {
             anchors.left: parent.left
             anchors.leftMargin: Constants.BigMargin + 40
             anchors.right: parent.right
-            source: "qrc:/views/Account.qml"
+            source: "qrc:/views/CreateTicket.qml"
             z: 1
         }
     }

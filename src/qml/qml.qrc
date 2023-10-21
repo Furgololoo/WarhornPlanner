@@ -25,6 +25,7 @@
         <file>views/custom/TextArea_C.qml</file>
         <file>views/custom/ComboBox_C.qml</file>
         <file>views/custom/EnumList.qml</file>
+        <file>views/elements/TicketLinks.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/dark/close.png</file>

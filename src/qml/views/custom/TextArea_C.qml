@@ -48,7 +48,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: (scrollBar.visible === true) ? scrollBar.left : parent.right
-        anchors.rightMargin: Constants.SmallMargin
+        anchors.rightMargin: (scrollBar.visible === true) ? Constants.SmallMargin : 0
         contentHeight: input.implicitHeight
         contentWidth: parent.width
 

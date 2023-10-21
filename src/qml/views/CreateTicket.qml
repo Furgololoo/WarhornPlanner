@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Effects
 import QtQuick.Controls
 import "custom/"
+import "elements/"
 import "../config/Colors.js" as Colors
 import "../config/Constants.js" as Constants
 
@@ -15,8 +16,9 @@ Item {
         property var component: ({})
         property var sprite: null
 
-        function createEnumList(obj: Item, enumID: int, comboBox: ComboBox_C) {
-            mainRect.component = Qt.createComponent("qrc:/views/custom/EnumList.qml")
+        function createEnumList(obj, enumID, comboBox) {
+            mainRect.component = Qt.createComponent(
+                        "qrc:/views/custom/EnumList.qml")
             mainRect.sprite = mainRect.component.createObject(mainRect)
             mainRect.sprite.width = obj.width
             mainRect.sprite.x = column.x
@@ -26,7 +28,7 @@ Item {
         }
 
         function destroyEnumList() {
-            if(mainRect.sprite !== null) {
+            if (mainRect.sprite !== null) {
                 mainRect.sprite.parentComboBox.lostFocus()
                 mainRect.sprite.destroy()
                 mainRect.sprite = null
@@ -63,226 +65,283 @@ Item {
                 font.bold: true
             }
 
-            Column {
-                id: column
-                width: parent.width * 0.5
-                anchors.left: parent.left
-                anchors.leftMargin: Constants.BigMargin
+            ScrollBar_C {
+                id: scrollBar
+                height: parent.height
+                width: parent.width * 0.012
+                anchors.top: parent.top
+                anchors.topMargin: Constants.BigMargin
+                anchors.right: parent.right
+
+                visible: column.implicitHeight > flickable.height ? true : false
+
+                onMoveToBegin: {
+                    flickable.contentY = 0
+                }
+
+                onMoveToEnd: {
+                    flickable.contentY = column.implicitHeight - flickable.height
+                }
+
+                onMoved: value => {
+                             flickable.contentY += value
+                         }
+            }
+
+            Flickable {
+                id: flickable
                 anchors.top: mainText.bottom
                 anchors.topMargin: Constants.BigMargin * 4
                 anchors.bottom: parent.bottom
-                spacing: Constants.BigMargin * 2
+                anchors.left: parent.left
+                anchors.leftMargin: Constants.BigMargin
+                width: parent.width * 0.5
+                contentHeight: column.implicitHeight
+                contentWidth: flickable.width
 
-                Item {
-                    id: titleItem
-                    width: parent.width
-                    height: 80
-                    Text {
-                        id: titleText
-                        height: 25
-                        anchors.top: parent.top
-                        anchors.left: parent.left
-                        anchors.leftMargin: Constants.BigMargin
-                        verticalAlignment: Text.AlignVCenter
-                        text: "Title"
-                        color: Colors.TextColor
-                        font.pointSize: 16
-                        font.bold: true
-                    }
-                    TextInput_C {
-                        id: titleInput
-                        anchors.top: titleText.bottom
-                        anchors.topMargin: Constants.BigMargin
-                        anchors.left: parent.left
-                        height: 50
-                        width: parent.width
-                        fontSize: 16
-                    }
+                boundsBehavior: Flickable.StopAtBounds
+                interactive: true
+                clip: true
+
+                onHeightChanged: {
+                    // it has to be here, scaling app causes slider bug
+                    scrollBar.setHandleSize(
+                                column.implicitHeight / flickable.height)
                 }
 
-                Item {
-                    id: typeItem
-                    width: parent.width
-                    height: 80
-                    Text {
-                        id: typeText
-                        height: 25
-                        anchors.top: parent.top
-                        anchors.left: parent.left
-                        anchors.leftMargin: Constants.BigMargin
-                        verticalAlignment: Text.AlignVCenter
-                        text: "Type"
-                        color: Colors.TextColor
-                        font.pointSize: 16
-                        font.bold: true
+                onContentYChanged: scrollBar.moveSlider(flickable.contentY)
+
+                Column {
+                    id: column
+                    anchors.fill: parent
+                    spacing: Constants.BigMargin * 2
+
+                    onImplicitHeightChanged: {
+                        if (column.implicitHeight === flickable.height) {
+                            scrollBar.disableScrollBar()
+                            flickable.width = root.width
+                            flickable.contentWidth = root.width
+                        } else
+                            scrollBar.setHandleSize(
+                                        column.implicitHeight / flickable.height)
                     }
-                    ComboBox_C {
-                        id: typeInput
-                        anchors.top: typeText.bottom
-                        anchors.topMargin: Constants.BigMargin
-                        anchors.left: parent.left
-                        height: 50
+
+                    Item {
+                        id: titleItem
                         width: parent.width
-                        onOpenList: {
-                            mainRect.createEnumList(typeItem, 3, typeInput)
+                        height: 80
+                        Text {
+                            id: titleText
+                            height: 25
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.leftMargin: Constants.BigMargin
+                            verticalAlignment: Text.AlignVCenter
+                            text: "Title"
+                            color: Colors.TextColor
+                            font.pointSize: 16
+                            font.bold: true
                         }
-                        onCloseList: {
-                            mainRect.destroyEnumList()
+                        TextInput_C {
+                            id: titleInput
+                            anchors.top: titleText.bottom
+                            anchors.topMargin: Constants.BigMargin
+                            anchors.left: parent.left
+                            height: 50
+                            width: parent.width
+                            fontSize: 16
                         }
+                    }
+
+                    Item {
+                        id: typeItem
+                        width: parent.width
+                        height: 80
+                        Text {
+                            id: typeText
+                            height: 25
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.leftMargin: Constants.BigMargin
+                            verticalAlignment: Text.AlignVCenter
+                            text: "Type"
+                            color: Colors.TextColor
+                            font.pointSize: 16
+                            font.bold: true
+                        }
+                        ComboBox_C {
+                            id: typeInput
+                            anchors.top: typeText.bottom
+                            anchors.topMargin: Constants.BigMargin
+                            anchors.left: parent.left
+                            height: 50
+                            width: parent.width
+                            onOpenList: {
+                                mainRect.createEnumList(typeItem, 3, typeInput)
+                            }
+                            onCloseList: {
+                                mainRect.destroyEnumList()
+                            }
+                        }
+                    }
+
+                    Item {
+                        id: acceptanceCriteriaItem
+                        width: parent.width
+                        height: 120
+                        Text {
+                            id: acceptanceCriteriaText
+                            height: 25
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.leftMargin: Constants.BigMargin
+                            verticalAlignment: Text.AlignVCenter
+                            text: "Acceptance Criteria"
+                            color: Colors.TextColor
+                            font.pointSize: 16
+                            font.bold: true
+                        }
+                        TextArea_C {
+                            id: acceptanceCriteriaInput
+                            anchors.top: acceptanceCriteriaText.bottom
+                            anchors.topMargin: Constants.BigMargin
+                            anchors.left: parent.left
+                            height: 90
+                            width: parent.width
+                        }
+                    }
+
+                    Item {
+                        id: descriptionItem
+                        width: parent.width
+                        height: 250
+                        Text {
+                            id: descriptionText
+                            height: 25
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.leftMargin: Constants.BigMargin
+                            verticalAlignment: Text.AlignVCenter
+                            text: "Description"
+                            color: Colors.TextColor
+                            font.pointSize: 16
+                            font.bold: true
+                        }
+                        TextArea_C {
+                            id: descriptionInput
+                            anchors.top: descriptionText.bottom
+                            anchors.topMargin: Constants.BigMargin
+                            anchors.left: parent.left
+                            height: 220
+                            width: parent.width
+                        }
+                    }
+
+                    Item {
+                        id: componentItem
+                        width: parent.width
+                        height: 80
+                        Text {
+                            id: componentText
+                            height: 25
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.leftMargin: Constants.BigMargin
+                            verticalAlignment: Text.AlignVCenter
+                            text: "Component"
+                            color: Colors.TextColor
+                            font.pointSize: 16
+                            font.bold: true
+                        }
+                        ComboBox_C {
+                            id: componentInput
+                            anchors.top: componentText.bottom
+                            anchors.topMargin: Constants.BigMargin
+                            anchors.left: parent.left
+                            height: 50
+                            width: parent.width
+                            onOpenList: {
+                                mainRect.createEnumList(componentItem, 1,
+                                                        componentInput)
+                            }
+                            onCloseList: {
+                                mainRect.destroyEnumList()
+                            }
+                        }
+                    }
+
+                    Item {
+                        id: priorityItem
+                        width: parent.width
+                        height: 80
+                        Text {
+                            id: priorityText
+                            height: 25
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.leftMargin: Constants.BigMargin
+                            verticalAlignment: Text.AlignVCenter
+                            text: "Priority"
+                            color: Colors.TextColor
+                            font.pointSize: 16
+                            font.bold: true
+                        }
+                        ComboBox_C {
+                            id: priorityInput
+                            anchors.top: priorityText.bottom
+                            anchors.topMargin: Constants.BigMargin
+                            anchors.left: parent.left
+                            height: 50
+                            width: parent.width
+                            onOpenList: {
+                                mainRect.createEnumList(priorityItem, 0,
+                                                        priorityInput)
+                            }
+                            onCloseList: {
+                                mainRect.destroyEnumList()
+                            }
+                        }
+                    }
+
+                    Item {
+                        id: statusItem
+                        width: parent.width
+                        height: 80
+                        Text {
+                            id: statusText
+                            height: 25
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.leftMargin: Constants.BigMargin
+                            verticalAlignment: Text.AlignVCenter
+                            text: "Status"
+                            color: Colors.TextColor
+                            font.pointSize: 16
+                            font.bold: true
+                        }
+                        ComboBox_C {
+                            id: statusInput
+                            anchors.top: statusText.bottom
+                            anchors.topMargin: Constants.BigMargin
+                            anchors.left: parent.left
+                            height: 50
+                            width: parent.width
+                            onOpenList: {
+                                mainRect.createEnumList(statusItem, 2,
+                                                        statusInput)
+                            }
+                            onCloseList: {
+                                mainRect.destroyEnumList()
+                            }
+                        }
+                    }
+
+                    TicketLinks {
+                        id: ticketLinks
+                        width: parent.width
+                        initialHeight: 50
                     }
                 }
-
-                Item {
-                    id: acceptanceCriteriaItem
-                    width: parent.width
-                    height: 120
-                    Text {
-                        id: acceptanceCriteriaText
-                        height: 25
-                        anchors.top: parent.top
-                        anchors.left: parent.left
-                        anchors.leftMargin: Constants.BigMargin
-                        verticalAlignment: Text.AlignVCenter
-                        text: "Acceptance Criteria"
-                        color: Colors.TextColor
-                        font.pointSize: 16
-                        font.bold: true
-                    }
-                    TextArea_C {
-                        id: acceptanceCriteriaInput
-                        anchors.top: acceptanceCriteriaText.bottom
-                        anchors.topMargin: Constants.BigMargin
-                        anchors.left: parent.left
-                        height: 90
-                        width: parent.width
-                    }
-                }
-
-                Item {
-                    id: descriptionItem
-                    width: parent.width
-                    height: 250
-                    Text {
-                        id: descriptionText
-                        height: 25
-                        anchors.top: parent.top
-                        anchors.left: parent.left
-                        anchors.leftMargin: Constants.BigMargin
-                        verticalAlignment: Text.AlignVCenter
-                        text: "Description"
-                        color: Colors.TextColor
-                        font.pointSize: 16
-                        font.bold: true
-                    }
-                    TextArea_C {
-                        id: descriptionInput
-                        anchors.top: descriptionText.bottom
-                        anchors.topMargin: Constants.BigMargin
-                        anchors.left: parent.left
-                        height: 220
-                        width: parent.width
-                    }
-                }
-
-                Item {
-                    id: componentItem
-                    width: parent.width
-                    height: 80
-                    Text {
-                        id: componentText
-                        height: 25
-                        anchors.top: parent.top
-                        anchors.left: parent.left
-                        anchors.leftMargin: Constants.BigMargin
-                        verticalAlignment: Text.AlignVCenter
-                        text: "Component"
-                        color: Colors.TextColor
-                        font.pointSize: 16
-                        font.bold: true
-                    }
-                    ComboBox_C {
-                        id: componentInput
-                        anchors.top: componentText.bottom
-                        anchors.topMargin: Constants.BigMargin
-                        anchors.left: parent.left
-                        height: 50
-                        width: parent.width
-                        onOpenList: {
-                            mainRect.createEnumList(componentItem, 1, componentInput)
-                        }
-                        onCloseList: {
-                            mainRect.destroyEnumList()
-                        }
-                    }
-                }
-
-                Item {
-                    id: priorityItem
-                    width: parent.width
-                    height: 80
-                    Text {
-                        id: priorityText
-                        height: 25
-                        anchors.top: parent.top
-                        anchors.left: parent.left
-                        anchors.leftMargin: Constants.BigMargin
-                        verticalAlignment: Text.AlignVCenter
-                        text: "Priority"
-                        color: Colors.TextColor
-                        font.pointSize: 16
-                        font.bold: true
-                    }
-                    ComboBox_C {
-                        id: priorityInput
-                        anchors.top: priorityText.bottom
-                        anchors.topMargin: Constants.BigMargin
-                        anchors.left: parent.left
-                        height: 50
-                        width: parent.width
-                        onOpenList: {
-                            mainRect.createEnumList(priorityItem, 0, priorityInput)
-                        }
-                        onCloseList: {
-                            mainRect.destroyEnumList()
-                        }
-                    }
-                }
-
-                Item {
-                    id: statusItem
-                    width: parent.width
-                    height: 80
-                    Text {
-                        id: statusText
-                        height: 25
-                        anchors.top: parent.top
-                        anchors.left: parent.left
-                        anchors.leftMargin: Constants.BigMargin
-                        verticalAlignment: Text.AlignVCenter
-                        text: "Status"
-                        color: Colors.TextColor
-                        font.pointSize: 16
-                        font.bold: true
-                    }
-                    ComboBox_C {
-                        id: statusInput
-                        anchors.top: statusText.bottom
-                        anchors.topMargin: Constants.BigMargin
-                        anchors.left: parent.left
-                        height: 50
-                        width: parent.width
-                        onOpenList: {
-                            mainRect.createEnumList(statusItem, 2, statusInput)
-                        }
-                        onCloseList: {
-                            mainRect.destroyEnumList()
-                        }
-                    }
-                }
-
-
-
-
             }
         }
     }
