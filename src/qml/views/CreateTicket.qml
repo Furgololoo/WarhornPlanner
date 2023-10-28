@@ -1,6 +1,8 @@
+import QtCore
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Controls
+import QtQuick.Dialogs
 import "custom/"
 import "elements/"
 import "../config/Colors.js" as Colors
@@ -9,47 +11,35 @@ import "../config/Constants.js" as Constants
 Item {
     anchors.fill: parent
 
+    Component.onCompleted: TicketManager.createTicket()
+
     Rectangle {
         id: mainRect
         anchors.fill: parent
         color: Colors.MainBGDarker
-        property var component: ({})
-        property var sprite: null
-
-        function createEnumList(obj, enumID, comboBox) {
-            mainRect.component = Qt.createComponent(
-                        "qrc:/views/custom/EnumList.qml")
-            mainRect.sprite = mainRect.component.createObject(mainRect)
-            mainRect.sprite.width = obj.width
-            mainRect.sprite.x = column.x
-            mainRect.sprite.y = column.y + obj.y + obj.height
-            mainRect.sprite.setEnumID(enumID)
-            mainRect.sprite.setParentComboBox(comboBox)
-        }
-
-        function destroyEnumList() {
-            if (mainRect.sprite !== null) {
-                mainRect.sprite.parentComboBox.lostFocus()
-                mainRect.sprite.destroy()
-                mainRect.sprite = null
-            }
-        }
-
-        Connections {
-            target: mainRect.sprite
-            function onCloseEnumList() {
-                mainRect.destroyEnumList()
-            }
-        }
 
         MouseArea {
             anchors.fill: parent
             onPressed: {
                 titleInput.lostFocus()
+                typeInput.lostFocus()
                 acceptanceCriteriaInput.lostFocus()
                 descriptionInput.lostFocus()
-                mainRect.destroyEnumList()
+                componentInput.lostFocus()
+                statusInput.lostFocus()
+                priorityInput.lostFocus()
+                ticketLinks.lostFocus()
+                imageList.lostFocus()
             }
+        }
+
+        Item {
+            id: mainItem
+            anchors.top: parent.top
+            anchors.bottom: saveButton.top
+            anchors.bottomMargin: Constants.BigMargin
+            anchors.left: parent.left
+            width: parent.width * 0.5
 
             Text {
                 id: mainText
@@ -68,7 +58,7 @@ Item {
             ScrollBar_C {
                 id: scrollBar
                 height: parent.height
-                width: parent.width * 0.012
+                width: parent.width * 0.02
                 anchors.top: parent.top
                 anchors.topMargin: Constants.BigMargin
                 anchors.right: parent.right
@@ -95,7 +85,8 @@ Item {
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 anchors.leftMargin: Constants.BigMargin
-                width: parent.width * 0.5
+                anchors.right: (scrollBar.visible === true) ? scrollBar.left : parent.right
+                anchors.rightMargin: (scrollBar.visible === true) ? Constants.BigMargin : 0
                 contentHeight: column.implicitHeight
                 contentWidth: flickable.width
 
@@ -105,6 +96,12 @@ Item {
 
                 onHeightChanged: {
                     // it has to be here, scaling app causes slider bug
+                    scrollBar.setHandleSize(
+                                column.implicitHeight / flickable.height)
+                }
+
+                onContentHeightChanged: {
+                    returnToBounds()
                     scrollBar.setHandleSize(
                                 column.implicitHeight / flickable.height)
                 }
@@ -150,6 +147,7 @@ Item {
                             height: 50
                             width: parent.width
                             fontSize: 16
+                            onTextChanged: function(text) { TicketManager.setTitle(text) }
                         }
                     }
 
@@ -174,14 +172,15 @@ Item {
                             anchors.top: typeText.bottom
                             anchors.topMargin: Constants.BigMargin
                             anchors.left: parent.left
-                            height: 50
                             width: parent.width
+                            enumID: 3
                             onOpenList: {
-                                mainRect.createEnumList(typeItem, 3, typeInput)
+                                typeItem.height += 100
                             }
                             onCloseList: {
-                                mainRect.destroyEnumList()
+                                typeItem.height -= 100
                             }
+                            onValueChanged: function(type) { TicketManager.setType(type) }
                         }
                     }
 
@@ -208,6 +207,7 @@ Item {
                             anchors.left: parent.left
                             height: 90
                             width: parent.width
+                            onTextChanged: function(text) { TicketManager.setAcceptanceCriteria(text) }
                         }
                     }
 
@@ -234,6 +234,7 @@ Item {
                             anchors.left: parent.left
                             height: 220
                             width: parent.width
+                            onTextChanged: function(text) { TicketManager.setDescription(text) }
                         }
                     }
 
@@ -258,15 +259,15 @@ Item {
                             anchors.top: componentText.bottom
                             anchors.topMargin: Constants.BigMargin
                             anchors.left: parent.left
-                            height: 50
                             width: parent.width
+                            enumID: 1
                             onOpenList: {
-                                mainRect.createEnumList(componentItem, 1,
-                                                        componentInput)
+                                componentItem.height += 150
                             }
                             onCloseList: {
-                                mainRect.destroyEnumList()
+                                componentItem.height -= 150
                             }
+                            onValueChanged: function(component) { TicketManager.setComponent(component) }
                         }
                     }
 
@@ -291,15 +292,15 @@ Item {
                             anchors.top: priorityText.bottom
                             anchors.topMargin: Constants.BigMargin
                             anchors.left: parent.left
-                            height: 50
                             width: parent.width
+                            enumID: 0
                             onOpenList: {
-                                mainRect.createEnumList(priorityItem, 0,
-                                                        priorityInput)
+                                priorityItem.height += 150
                             }
                             onCloseList: {
-                                mainRect.destroyEnumList()
+                                priorityItem.height -= 150
                             }
+                            onValueChanged: function(priority) { TicketManager.setPriority(priority) }
                         }
                     }
 
@@ -324,15 +325,16 @@ Item {
                             anchors.top: statusText.bottom
                             anchors.topMargin: Constants.BigMargin
                             anchors.left: parent.left
-                            height: 50
                             width: parent.width
+                            enumID: 2
+                            enabled: false
                             onOpenList: {
-                                mainRect.createEnumList(statusItem, 2,
-                                                        statusInput)
+                                statusItem.height += 150
                             }
                             onCloseList: {
-                                mainRect.destroyEnumList()
+                                statusItem.height -= 150
                             }
+                            onValueChanged: function(status) { TicketManager.setStatus(status) }
                         }
                     }
 
@@ -342,6 +344,63 @@ Item {
                         initialHeight: 50
                     }
                 }
+            }
+        }
+
+        Item {
+            id: imageItem
+            anchors.top: parent.top
+            anchors.bottom: saveButton.top
+            anchors.bottomMargin: Constants.BigMargin
+            anchors.right: parent.right
+            width: parent.width * 0.5
+
+            Image {
+                id: image
+                anchors.top: parent.top
+                anchors.topMargin: Constants.BigMargin * 4
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width * 0.3
+                height: parent.width * 0.3
+
+                source: "qrc:/icons/icons/light/add_image2.png"
+
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: fileDialog.open()
+                }
+
+                FileDialog {
+                    id: fileDialog
+                    title: "Select an attachment"
+                    currentFolder: StandardPaths.writableLocation(StandardPaths.DownloadLocation)
+                    onAccepted: imageList.addEntity(selectedFile)
+                }
+            }
+
+            ImageList {
+                id: imageList
+                anchors.top: image.bottom
+                anchors.topMargin: Constants.BigMargin * 4
+                anchors.bottom: parent.bottom
+                width: parent.width
+            }
+        }
+
+        Button_C {
+            id: saveButton
+            anchors.left: parent.left
+            anchors.leftMargin: Constants.BigMargin
+            anchors.right: parent.right
+            anchors.rightMargin: Constants.BigMargin
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: Constants.BigMargin
+            height: parent.height * 0.05
+            baseText: "Save"
+            fontSize: 32
+            onPressedButton: {
+                PopupManager.showError("Every input should be filled!")
+//                TicketManager.saveTicket()
             }
         }
     }

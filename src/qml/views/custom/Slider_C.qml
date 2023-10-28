@@ -68,7 +68,7 @@ Item {
         }
     }
 
-    IntegerInput {
+    IntegerInput_C {
         id: input
         width: 40
         height: 25

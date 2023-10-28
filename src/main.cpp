@@ -3,6 +3,8 @@
 #include <QQmlContext>
 
 #include "coffey.h"
+#include "managers/popupmanager.h"
+#include "popup/error.h"
 #include "ticket/ticketbase.h"
 
 int main(int argc, char *argv[]) {
@@ -15,8 +17,11 @@ int main(int argc, char *argv[]) {
                                            coffey.getBoardManager());
   engine.rootContext()->setContextProperty("TicketManager",
                                            coffey.getTicketManager());
+  engine.rootContext()->setContextProperty("PopupManager",
+                                           &popup::PopupManager::getInstance());
 
   qmlRegisterType<ticket::TicketBase>("CustomElements", 1, 0, "TicketBase");
+  qmlRegisterType<popup::Error>("CustomElements", 1, 0, "Error");
 
   const QUrl url("qrc:/main.qml");
   QObject::connect(

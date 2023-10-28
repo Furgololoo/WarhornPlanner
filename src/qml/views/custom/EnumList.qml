@@ -81,7 +81,7 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             onPressed: {
-                                root.parentComboBox.selectedValue(modelData)
+                                root.parentComboBox.selectedValue(modelData, index)
                                 root.closeEnumList()
                             }
                         }

@@ -4,18 +4,27 @@ import "../../config/Constants.js" as Constants
 
 Item {
     id: root
-    height: 40
+    height: 50
+
+    property int enumID: 0
 
     signal openList()
     signal closeList()
+    signal valueChanged(value: int)
 
-    function selectedValue(value) {
+    function selectedValue(value, index) {
         mainText.text = value
+        console.log("Value changed: " + index)
+        valueChanged(index)
     }
 
     function lostFocus() {
-        icon.source = "qrc:/icons/icons/light/more.png"
-        mouseArea.state = false
+        if (mouseArea.state) {
+            icon.source = "qrc:/icons/icons/light/more.png"
+            mouseArea.state = false
+            topRect.destroyEnumList()
+            root.closeList()
+        }
     }
 
     Rectangle {
@@ -24,7 +33,37 @@ Item {
         height: 40
         color: Colors.SubtleAccent
         property var component: ({})
-        property var sprite: ({})
+        property var sprite: null
+
+        function createEnumList() {
+            topRect.component = Qt.createComponent(
+                        "qrc:/views/custom/EnumList.qml")
+            topRect.sprite = topRect.component.createObject(topRect)
+            topRect.sprite.width = topRect.width
+            topRect.sprite.anchors.top = topRect.bottom
+            topRect.sprite.anchors.topMargin = Constants.SmallMargin
+            topRect.sprite.anchors.left = topRect.left
+            topRect.sprite.setEnumID(root.enumID)
+            topRect.sprite.setParentComboBox(root)
+        }
+
+        function destroyEnumList() {
+            if (topRect.sprite !== null) {
+                topRect.sprite.destroy()
+                topRect.sprite = null
+                root.height -= 100
+                icon.source = "qrc:/icons/icons/light/more.png"
+                mouseArea.state = false
+            }
+        }
+
+        Connections {
+            target: topRect.sprite
+            function onCloseEnumList() {
+                root.closeList()
+                topRect.destroyEnumList()
+            }
+        }
 
         Image {
             id: icon
@@ -55,13 +94,16 @@ Item {
             property bool state: false
 
             onClicked: {
-                if(!state) {
+                if (!state) {
                     openList()
+                    root.height += 100
+                    topRect.createEnumList()
                     icon.source = "qrc:/icons/icons/light/less.png"
                     mouseArea.state = true
-                }
-                else {
+                } else {
                     closeList()
+                    root.height -= 100
+                    topRect.destroyEnumList()
                     icon.source = "qrc:/icons/icons/light/more.png"
                     mouseArea.state = false
                 }

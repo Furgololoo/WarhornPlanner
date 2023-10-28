@@ -8,19 +8,48 @@ Item {
     height: initialHeight
 
     property int initialHeight: 40
+    property var component: ({})
+
+    function removeMe(index) {
+        mainRect.destroyLink(index)
+        TicketManager.removeLink(index)
+    }
+
+    function lostFocus() {
+        for (var i = 0; i < mainRect.linksCount; i++)
+            column.children[i].lostFocus()
+    }
+
+    Component.onCompleted: {
+        root.component = Qt.createComponent(
+                    "qrc:/views/elements/TicketLink.qml")
+    }
 
     Rectangle {
         id: mainRect
         width: root.width
         height: initialHeight
-        color: "red"//Colors.MainBGDarker
+        color: Colors.MainBGDarker
+        property int linksCount: 0
 
         function addLink() {
-            let newLink = ticketLink.createObject(column)
+            let newLink = root.component.createObject(column)
+            newLink.setTicketLinks(root)
+            newLink.index = mainRect.linksCount
+            TicketManager.addLink("", "", mainRect.linksCount)
+            mainRect.linksCount++
         }
 
-        function destroyLink(index: int) {
+        function destroyLink(index) {
+            let subtractor = 0
+            for (var i = 0; i < mainRect.linksCount; i++) {
+                if (i === index)
+                    subtractor++
+                else
+                    column.children[i].index = i - subtractor
+            }
             column.children[index].destroy()
+            mainRect.linksCount--
         }
 
         Item {
@@ -32,7 +61,7 @@ Item {
             Button_C {
                 anchors.fill: parent
                 onPressedButton: mainRect.addLink()
-                baseText: qsTr("Add Link")
+                baseText: "Add Link"
             }
         }
 
@@ -46,18 +75,9 @@ Item {
                 id: column
                 width: parent.width
                 height: column.contentHeight
-                spacing: Constants.SmallMargin
-                                                                                 // TODO: remove this buffer
-                onHeightChanged: root.height = column.height + root.initialHeight + 30  // buffer
-            }
-        }
-
-        Component {
-            id: ticketLink
-            Rectangle {
-                width: parent.width
-                height: 50
-                color: "blue"
+                spacing: Constants.BigMargin * 2
+                // TODO: remove this buffer
+                onHeightChanged: root.height = column.height + root.initialHeight + 30 // buffer
             }
         }
     }

@@ -13,8 +13,8 @@ class Coffey : public QObject {
 public:
   explicit Coffey(QObject *parent = nullptr);
 
-  BoardManager *getBoardManager() { return &board; };
-  ticket::TicketManager *getTicketManager() { return &ticketManager; };
+  BoardManager *getBoardManager() { return &board; }
+  ticket::TicketManager *getTicketManager() { return &ticketManager; }
 
 signals:
 

@@ -11,7 +11,7 @@ var Accent2 = "#474747"*/
 
 var MainBG = "#131318"
 var MainBGDarker = "#09090d"
-var MainAccent = "#0067ab"
+var MainAccent = "#2E93FF"//"#0067ab"
 var SubtleAccent = "#25252d"
 var TextColor = "#ebebef"
 var PlaceholderTextColor = "#6a6a70"

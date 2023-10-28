@@ -26,6 +26,11 @@
         <file>views/custom/ComboBox_C.qml</file>
         <file>views/custom/EnumList.qml</file>
         <file>views/elements/TicketLinks.qml</file>
+        <file>views/elements/TicketLink.qml</file>
+        <file>views/elements/ImageList.qml</file>
+        <file>views/elements/ImageEntity.qml</file>
+        <file>views/elements/popup/PopupEntity.qml</file>
+        <file>views/elements/popup/ErrorStack.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/dark/close.png</file>
@@ -51,5 +56,10 @@
         <file>icons/dark/more.png</file>
         <file>icons/light/less.png</file>
         <file>icons/light/more.png</file>
+        <file>icons/colors/close.png</file>
+        <file>icons/dark/add_image.png</file>
+        <file>icons/light/add_image.png</file>
+        <file>icons/dark/add_image2.png</file>
+        <file>icons/light/add_image2.png</file>
     </qresource>
 </RCC>

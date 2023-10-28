@@ -1,21 +1,17 @@
 import QtQuick
 import QtQuick.Effects
 import CustomElements
-import "custom/"
-import "elements/"
 import "qrc:/config/Colors.js" as Colors
 import "qrc:/config/Constants.js" as Constants
 
 Item {
-    anchors.fill: parent
+    height: column.implicitHeight
 
     Rectangle {
         id: mainRect
         anchors.fill: parent
         color: Colors.MainBGDarker
         property var component: ({})
-//        LayoutMirroring.enabled: true
-//        LayoutMirroring.childrenInherit: true
 
         Component.onCompleted: mainRect.component = Qt.createComponent(
                                    "qrc:/views/elements/popup/PopupEntity.qml")

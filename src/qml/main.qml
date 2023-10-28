@@ -1,6 +1,7 @@
 import QtQuick
 import "views/"
 import "views/elements/"
+import "views/elements/popup"
 import "config/Colors.js" as Colors
 import "config/Constants.js" as Constants
 
@@ -11,6 +12,13 @@ Window {
     visible: true
     width: 1920
     height: 1080
+
+    Connections {
+        target: PopupManager
+        function onRaiseError(text: string) {
+
+        }
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -45,6 +53,12 @@ Window {
             anchors.right: parent.right
             source: "qrc:/views/CreateTicket.qml"
             z: 1
+
+            ErrorStack {
+                anchors.top: parent.top
+                width: parent.width
+                z: 3
+            }
         }
     }
 }

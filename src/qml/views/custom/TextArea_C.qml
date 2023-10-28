@@ -80,6 +80,8 @@ Item {
 
             onFocusChanged: {
                 hasFocus = focus
+                if(!focus)
+                    root.textChanged(input.text)
             }
 
             background: Rectangle {

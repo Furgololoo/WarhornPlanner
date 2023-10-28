@@ -5,8 +5,9 @@ Item {
     id: root
 
     property int fontSize: 12
+    property bool editable: true
 
-    function setText(text: string) {
+    function setText(text) {
         input.text = text
     }
 
@@ -30,6 +31,7 @@ Item {
             anchors.leftMargin: 8
             color: Colors.TextColor
             verticalAlignment: Text.AlignVCenter
+            enabled: root.editable
 
             activeFocusOnPress: true
             selectByMouse: true
@@ -38,10 +40,9 @@ Item {
             onEditingFinished: input.focus = false
 
             onFocusChanged: {
-                if(focus) {
+                if (focus) {
                     background.border.color = Colors.MainAccent
-                }
-                else {
+                } else {
                     background.border.color = Colors.SubtleAccent
                     root.textChanged(input.text)
                 }
