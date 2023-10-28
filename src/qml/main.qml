@@ -15,9 +15,7 @@ Window {
 
     Connections {
         target: PopupManager
-        function onRaiseError(text: string) {
-
-        }
+        function onRaiseError(text) {}
     }
 
     Rectangle {
@@ -39,7 +37,7 @@ Window {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: Constants.BigMargin
             anchors.left: parent.left
-            onChangeWindow: (windowUrl) => loader.source = windowUrl
+            onChangeWindow: windowUrl => loader.source = windowUrl
             z: 2
         }
 
@@ -57,6 +55,13 @@ Window {
             ErrorStack {
                 anchors.top: parent.top
                 width: parent.width
+                z: 3
+            }
+
+            NotifyStack {
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                width: parent.width * 0.2
                 z: 3
             }
         }

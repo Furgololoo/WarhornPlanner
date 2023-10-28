@@ -41,7 +41,6 @@ Item {
             id: mainText
             anchors.fill: parent
             anchors.leftMargin: Constants.BigMargin
-            anchors.bottomMargin: parent.height * 0.2
             text: baseText
             font.bold: true
             font.pointSize: fontSize

@@ -8,7 +8,15 @@ Item {
 
     property bool hasFocus: false
 
-    function setText(text: string) {
+    function showError() {
+        background.border.color = Colors.Red
+    }
+
+    function isEmpty() {
+        return input.text === ""
+    }
+
+    function setText(text) {
         input.text = text
     }
 
@@ -17,7 +25,12 @@ Item {
         input.focus = false
     }
 
-    signal textChanged(text: string)
+    onHasFocusChanged: {
+        console.log("on has focus changed to: " + hasFocus)
+        background.border.color = (root.hasFocus) ? Colors.MainAccent : Colors.SubtleAccent
+    }
+
+    signal textChanged(string text)
 
     ScrollBar_C {
         id: scrollBar
@@ -37,7 +50,7 @@ Item {
             flickable.contentY = input.implicitHeight - flickable.height
         }
 
-        onMoved: (value) => {
+        onMoved: value => {
                      flickable.contentY += value
                  }
     }
@@ -56,7 +69,8 @@ Item {
         interactive: true
         clip: true
 
-        onHeightChanged: {      // it has to be here, scaling app causes slider bug
+        onHeightChanged: {
+            // it has to be here, scaling app causes slider bug
             scrollBar.setHandleSize(input.implicitHeight / flickable.height)
         }
 
@@ -66,29 +80,32 @@ Item {
             id: input
             anchors.fill: parent
             implicitWidth: root.width - 30
-//            implicitHeight: root.height > contentHeight ? root.height : contentHeight
+            //            implicitHeight: root.height > contentHeight ? root.height : contentHeight
             color: Colors.TextColor
-            textFormat: TextEdit.RichText
+            textFormat: TextEdit.PlainText
             activeFocusOnPress: true
-
             font.pointSize: 11
 
-            onTextChanged: {        // it has to be here, scaling app causes slider bug
+            onTextChanged: {
+                // it has to be here, scaling app causes slider bug
                 scrollBar.setHandleSize(input.implicitHeight / flickable.height)
                 scrollBar.moveSlider(flickable.contentY)
+                if (root.hasFocus === true
+                        && background.border.color === Colors.Red)
+                    background.border.color = Colors.MainAccent
             }
 
             onFocusChanged: {
-                hasFocus = focus
-                if(!focus)
+                root.hasFocus = focus
+                if (!focus)
                     root.textChanged(input.text)
             }
 
             background: Rectangle {
+                id: background
                 anchors.fill: parent
                 color: Colors.MainBG
                 border.width: 1
-                border.color: root.hasFocus ? Colors.MainAccent : Colors.SubtleAccent
             }
         }
     }

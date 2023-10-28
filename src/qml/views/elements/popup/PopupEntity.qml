@@ -10,6 +10,10 @@ Item {
         mainText.text = text
     }
 
+    function setFontPointSize(size) {
+        mainText.font.pointSize = size
+    }
+
     Component.onDestruction: console.log("destroying popup")
 
     Text {
@@ -18,28 +22,28 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.leftMargin: Constants.BigMargin
-        horizontalAlignment: Text.AlignLeft
+        horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        text: (root.parent.baseText !== null) ? root.parent.baseText : ""
-        color: Colors.MainBGDarker
-        elide: Text.ElideRight
+        text: (root.parent.baseText) ? root.parent.baseText : ""
+        color: Colors.TextColor
+        wrapMode: Text.WordWrap
         font.pointSize: 18
         font.bold: true
     }
 
-//    Image {
-//        anchors.right: parent.right
-//        anchors.rightMargin: Constants.BigMargin * 2
-//        anchors.verticalCenter: parent.verticalCenter
-//        width: sourceSize.width + 15
-//        height: sourceSize.height + 15
-//        source: "qrc:/icons/icons/dark/close.png"
+    //    Image {
+    //        anchors.right: parent.right
+    //        anchors.rightMargin: Constants.BigMargin * 2
+    //        anchors.verticalCenter: parent.verticalCenter
+    //        width: sourceSize.width + 15
+    //        height: sourceSize.height + 15
+    //        source: "qrc:/icons/icons/dark/close.png"
 
-//        MouseArea {
-//            anchors.fill: parent
-//            onPressed: {
-//                root.parent.close()
-//            }
-//        }
-//    }
+    //        MouseArea {
+    //            anchors.fill: parent
+    //            onPressed: {
+    //                root.parent.close()
+    //            }
+    //        }
+    //    }
 }

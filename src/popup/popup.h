@@ -7,22 +7,24 @@
 namespace popup {
 class Popup : public QQuickItem {
   Q_OBJECT
-public:
+ public:
   Popup();
   void setMapID(const uint8_t id) { map_id = id; }
   uint8_t getMapID() const { return map_id; }
 
-protected:
+ protected:
   Q_PROPERTY(QString baseText MEMBER m_baseText READ getBaseText WRITE
                  setBaseText NOTIFY baseTextChanged)
   Q_PROPERTY(
       QColor baseColor MEMBER m_baseColor READ getBaseColor WRITE setBaseColor)
+  Q_PROPERTY(QColor borderColor MEMBER m_borderColor READ getBorderColor WRITE
+                 setBorderColor)
 
-  virtual QSGNode *
-  updatePaintNode(QSGNode *oldNode,
-                  UpdatePaintNodeData *updatePaintNodeData) override final;
+  virtual QSGNode *updatePaintNode(
+      QSGNode *oldNode,
+      UpdatePaintNodeData *updatePaintNodeData) override final;
 
-public slots:
+ public slots:
   QString getBaseText() { return m_baseText; }
   void setBaseText(const QString &err_text) {
     m_baseText = err_text;
@@ -32,16 +34,18 @@ public slots:
   QColor getBaseColor() { return m_baseColor; }
   void setBaseColor(const QColor &color) { m_baseColor = color; }
 
-  void close();
+  QColor getBorderColor() { return m_borderColor; }
+  void setBorderColor(const QColor &color) { m_borderColor = color; }
 
-signals:
+ signals:
   void baseTextChanged(const QString &text);
 
   void timeToSayGoodbye();
 
-private:
+ private:
   QString m_baseText;
   QColor m_baseColor;
+  QColor m_borderColor;
 
   QTimer timer;
 
@@ -50,4 +54,4 @@ private:
   QSGGeometryNode *m_borderActiveNode;
 };
 
-} // namespace popup
+}  // namespace popup

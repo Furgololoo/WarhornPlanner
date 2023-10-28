@@ -7,6 +7,14 @@ Item {
     property int fontSize: 12
     property bool editable: true
 
+    function showError() {
+        background.border.color = Colors.Red
+    }
+
+    function isEmpty() {
+        return input.text === ""
+    }
+
     function setText(text) {
         input.text = text
     }
@@ -15,7 +23,7 @@ Item {
         input.focus = false
     }
 
-    signal textChanged(text: string)
+    signal textChanged(string text)
 
     Rectangle {
         id: background

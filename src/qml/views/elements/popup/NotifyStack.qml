@@ -18,11 +18,12 @@ Item {
 
         Connections {
             target: PopupManager
-            function onRaiseError(obj) {
+            function onRaiseNotify(obj) {
                 obj.parent = column
                 obj.width = parent.width
-                obj.height = 50
-                mainRect.component.createObject(obj)
+                obj.height = 75
+                let popup = mainRect.component.createObject(obj)
+                popup.setFontPointSize(16)
             }
         }
 

@@ -1,5 +1,7 @@
 #include "popup.h"
+
 #include <QSGFlatColorMaterial>
+#include <QSGSimpleRectNode>
 
 namespace popup {
 
@@ -7,48 +9,55 @@ Popup::Popup() {
   setFlag(ItemHasContents, true);
   timer.setInterval(5000);
   timer.setSingleShot(true);
-  connect(&timer, &QTimer::timeout, this, &Popup::close);
+  connect(&timer, &QTimer::timeout, this,
+          [this]() { emit timeToSayGoodbye(); });
   timer.start();
 }
 
 QSGNode *Popup::updatePaintNode(QSGNode *oldNode,
                                 UpdatePaintNodeData *updatePaintNodeData) {
-
-  QSGGeometryNode *mainRect = static_cast<QSGGeometryNode *>(oldNode);
-
+  qDebug() << "0";
+  QSGSimpleRectNode *mainRect = static_cast<QSGSimpleRectNode *>(oldNode);
+  QSGGeometryNode *borderNode;
+  QSGGeometry *border;
+  qDebug() << "1";
   if (!mainRect) {
-    mainRect = new QSGGeometryNode;
+    qDebug() << "2a";
+    mainRect = new QSGSimpleRectNode(boundingRect(), m_baseColor);
+    borderNode = new QSGGeometryNode;
+    border = new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), 5);
+    mainRect->appendChildNode(borderNode);
     mainRect->setFlag(QSGNode::OwnsMaterial, true);
     mainRect->setFlag(QSGNode::OwnsGeometry, true);
+  } else {
+    qDebug() << "2b";
+    borderNode = static_cast<QSGGeometryNode *>(mainRect->childAtIndex(0));
+    border = borderNode->geometry();
   }
 
+  qDebug() << "3";
+  border->setLineWidth(2);
+  border->setDrawingMode(QSGGeometry::DrawLineStrip);
+  borderNode->setGeometry(border);
+
+  qDebug() << "4";
+  auto *material = new QSGFlatColorMaterial;
+  material->setColor(m_borderColor);
+  borderNode->setMaterial(material);
+
+  qDebug() << "5";
   const QRectF rect = boundingRect();
-  QSGGeometry *geometry =
-      new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), 4);
 
-  QSGGeometry::Point2D *points = geometry->vertexDataAsPoint2D();
-  points[0].x = rect.left();
-  points[0].y = rect.top();
-  points[1].x = rect.left();
-  points[1].y = rect.bottom();
-  points[2].x = rect.right();
-  points[2].y = rect.top();
-  points[3].x = rect.right();
-  points[3].y = rect.bottom();
-
-  mainRect->setGeometry(geometry);
-
-  QSGFlatColorMaterial *material = new QSGFlatColorMaterial;
-  material->setColor(m_baseColor);
-  mainRect->setMaterial(material);
+  QSGGeometry::Point2D *vertices = border->vertexDataAsPoint2D();
+  vertices[0].set(0, 0);
+  vertices[1].set(rect.width(), 0);
+  vertices[2].set(rect.width(), rect.height());
+  vertices[3].set(0, rect.height());
+  vertices[4].set(0, 0);
+  borderNode->markDirty(QSGNode::DirtyGeometry);
+  mainRect->markDirty(QSGNode::DirtyGeometry);
 
   return mainRect;
 }
 
-void Popup::close() {
-  timer.stop();
-  disconnect(&timer, &QTimer::timeout, this, &Popup::close);
-  emit timeToSayGoodbye();
-}
-
-} // namespace popup
+}  // namespace popup

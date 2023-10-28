@@ -9,6 +9,7 @@ import "../config/Colors.js" as Colors
 import "../config/Constants.js" as Constants
 
 Item {
+    id: root
     anchors.fill: parent
 
     Component.onCompleted: TicketManager.createTicket()
@@ -147,7 +148,9 @@ Item {
                             height: 50
                             width: parent.width
                             fontSize: 16
-                            onTextChanged: function(text) { TicketManager.setTitle(text) }
+                            onTextChanged: function (text) {
+                                TicketManager.setTitle(text)
+                            }
                         }
                     }
 
@@ -180,7 +183,9 @@ Item {
                             onCloseList: {
                                 typeItem.height -= 100
                             }
-                            onValueChanged: function(type) { TicketManager.setType(type) }
+                            onValueChanged: function (type) {
+                                TicketManager.setType(type)
+                            }
                         }
                     }
 
@@ -207,7 +212,9 @@ Item {
                             anchors.left: parent.left
                             height: 90
                             width: parent.width
-                            onTextChanged: function(text) { TicketManager.setAcceptanceCriteria(text) }
+                            onTextChanged: function (text) {
+                                TicketManager.setAcceptanceCriteria(text)
+                            }
                         }
                     }
 
@@ -234,7 +241,9 @@ Item {
                             anchors.left: parent.left
                             height: 220
                             width: parent.width
-                            onTextChanged: function(text) { TicketManager.setDescription(text) }
+                            onTextChanged: function (text) {
+                                TicketManager.setDescription(text)
+                            }
                         }
                     }
 
@@ -267,7 +276,9 @@ Item {
                             onCloseList: {
                                 componentItem.height -= 150
                             }
-                            onValueChanged: function(component) { TicketManager.setComponent(component) }
+                            onValueChanged: function (component) {
+                                TicketManager.setComponent(component)
+                            }
                         }
                     }
 
@@ -300,7 +311,9 @@ Item {
                             onCloseList: {
                                 priorityItem.height -= 150
                             }
-                            onValueChanged: function(priority) { TicketManager.setPriority(priority) }
+                            onValueChanged: function (priority) {
+                                TicketManager.setPriority(priority)
+                            }
                         }
                     }
 
@@ -334,7 +347,9 @@ Item {
                             onCloseList: {
                                 statusItem.height -= 150
                             }
-                            onValueChanged: function(status) { TicketManager.setStatus(status) }
+                            onValueChanged: function (status) {
+                                TicketManager.setStatus(status)
+                            }
                         }
                     }
 
@@ -373,7 +388,8 @@ Item {
                 FileDialog {
                     id: fileDialog
                     title: "Select an attachment"
-                    currentFolder: StandardPaths.writableLocation(StandardPaths.DownloadLocation)
+                    currentFolder: StandardPaths.writableLocation(
+                                       StandardPaths.DownloadLocation)
                     onAccepted: imageList.addEntity(selectedFile)
                 }
             }
@@ -398,10 +414,44 @@ Item {
             height: parent.height * 0.05
             baseText: "Save"
             fontSize: 32
+
             onPressedButton: {
-                PopupManager.showError("Every input should be filled!")
-//                TicketManager.saveTicket()
+                PopupManager.showNotify("Ticket Created Succesfully!")
+                //                if (root.isValid()) {
+                //                    TicketManager.saveTicket()
+                //                } else {
+                //                    PopupManager.showError("Every input should be filled!")
+                //                }
             }
         }
+    }
+
+    function isValid() {
+        let isOk = true
+        if (titleInput.isEmpty()) {
+            titleInput.showError()
+            isOk = false
+        }
+        if (typeInput.isSet()) {
+            typeInput.showError()
+            isOk = false
+        }
+        if (acceptanceCriteriaInput.isEmpty()) {
+            acceptanceCriteriaInput.showError()
+            isOk = false
+        }
+        if (descriptionInput.isEmpty()) {
+            descriptionInput.showError()
+            isOk = false
+        }
+        if (componentInput.isSet()) {
+            componentInput.showError()
+            isOk = false
+        }
+        if (priorityInput.isSet()) {
+            priorityInput.showError()
+            isOk = false
+        }
+        return isOk
     }
 }

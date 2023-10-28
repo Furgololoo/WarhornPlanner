@@ -7,13 +7,24 @@ Item {
     height: 50
 
     property int enumID: 0
+    property int selectedValueInt: -1
 
-    signal openList()
-    signal closeList()
-    signal valueChanged(value: int)
+    signal openList
+    signal closeList
+    signal valueChanged(int value)
+
+    function showError() {
+        topRect.border.color = Colors.Red
+    }
+
+    function isSet() {
+        return !(root.selectedValueInt !== -1)
+    }
 
     function selectedValue(value, index) {
         mainText.text = value
+        root.selectedValueInt = index
+        topRect.border.color = Colors.SubtleAccent
         console.log("Value changed: " + index)
         valueChanged(index)
     }
@@ -31,7 +42,9 @@ Item {
         id: topRect
         width: parent.width
         height: 40
-        color: Colors.SubtleAccent
+        color: Colors.MainBG
+        border.width: 1
+        border.color: Colors.SubtleAccent
         property var component: ({})
         property var sprite: null
 
@@ -98,6 +111,7 @@ Item {
                     openList()
                     root.height += 100
                     topRect.createEnumList()
+                    topRect.border.color = Colors.SubtleAccent
                     icon.source = "qrc:/icons/icons/light/less.png"
                     mouseArea.state = true
                 } else {

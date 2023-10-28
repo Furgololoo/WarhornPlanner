@@ -2,6 +2,9 @@
 
 namespace popup {
 
-Notify::Notify() { setBaseColor("#09090d"); }
+Notify::Notify() {
+  setBaseColor("#131318");
+  setBorderColor("#2E93FF");
+}
 
-} // namespace popup
+}  // namespace popup
