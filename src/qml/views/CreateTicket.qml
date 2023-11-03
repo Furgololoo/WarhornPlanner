@@ -14,6 +14,29 @@ Item {
 
     Component.onCompleted: TicketManager.createTicket()
 
+    Connections {
+        target: TicketManager
+        function onResetTicketView() {
+            titleInput.reset()
+            typeInput.reset()
+            acceptanceCriteriaInput.reset()
+            descriptionInput.reset()
+            componentInput.reset()
+            priorityInput.reset()
+            ticketLinks.reset()
+            imageList.reset()
+        }
+
+        function onGetData() {
+            TicketManager.setTitle(titleInput.getValue())
+            TicketManager.setType(typeInput.getValue())
+            TicketManager.setAcceptanceCriteria(acceptanceCriteriaInput.getValue())
+            TicketManager.setDescription(descriptionInput.getValue())
+            TicketManager.setComponent(componentInput.getValue())
+            TicketManager.setPriority(priorityInput.getValue())
+        }
+    }
+
     Rectangle {
         id: mainRect
         anchors.fill: parent
@@ -85,7 +108,7 @@ Item {
                 anchors.topMargin: Constants.BigMargin * 4
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
-                anchors.leftMargin: Constants.BigMargin
+                anchors.leftMargin: Constants.BigMargin + 1
                 anchors.right: (scrollBar.visible === true) ? scrollBar.left : parent.right
                 anchors.rightMargin: (scrollBar.visible === true) ? Constants.BigMargin : 0
                 contentHeight: column.implicitHeight
@@ -148,9 +171,6 @@ Item {
                             height: 50
                             width: parent.width
                             fontSize: 16
-                            onTextChanged: function (text) {
-                                TicketManager.setTitle(text)
-                            }
                         }
                     }
 
@@ -183,9 +203,6 @@ Item {
                             onCloseList: {
                                 typeItem.height -= 100
                             }
-                            onValueChanged: function (type) {
-                                TicketManager.setType(type)
-                            }
                         }
                     }
 
@@ -212,9 +229,6 @@ Item {
                             anchors.left: parent.left
                             height: 90
                             width: parent.width
-                            onTextChanged: function (text) {
-                                TicketManager.setAcceptanceCriteria(text)
-                            }
                         }
                     }
 
@@ -241,9 +255,6 @@ Item {
                             anchors.left: parent.left
                             height: 220
                             width: parent.width
-                            onTextChanged: function (text) {
-                                TicketManager.setDescription(text)
-                            }
                         }
                     }
 
@@ -275,9 +286,6 @@ Item {
                             }
                             onCloseList: {
                                 componentItem.height -= 150
-                            }
-                            onValueChanged: function (component) {
-                                TicketManager.setComponent(component)
                             }
                         }
                     }
@@ -311,9 +319,6 @@ Item {
                             onCloseList: {
                                 priorityItem.height -= 150
                             }
-                            onValueChanged: function (priority) {
-                                TicketManager.setPriority(priority)
-                            }
                         }
                     }
 
@@ -346,9 +351,6 @@ Item {
                             }
                             onCloseList: {
                                 statusItem.height -= 150
-                            }
-                            onValueChanged: function (status) {
-                                TicketManager.setStatus(status)
                             }
                         }
                     }
@@ -416,12 +418,12 @@ Item {
             fontSize: 32
 
             onPressedButton: {
-                PopupManager.showNotify("Ticket Created Succesfully!")
-                //                if (root.isValid()) {
-                //                    TicketManager.saveTicket()
-                //                } else {
-                //                    PopupManager.showError("Every input should be filled!")
-                //                }
+                if (root.isValid()) {
+                    TicketManager.saveTicket()
+                    PopupManager.showNotify("Ticket Created Succesfully!")
+                } else {
+                    PopupManager.showError("All text fields should be completed!")
+                }
             }
         }
     }

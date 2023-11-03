@@ -6,6 +6,14 @@ Item {
 
     property int fontSize: 12
     property bool editable: true
+    property int mode: TextInput.Normal
+
+    signal textChanged(text: string)
+
+    function reset() {
+        input.text = ""
+        input.focus = false
+    }
 
     function showError() {
         background.border.color = Colors.Red
@@ -23,7 +31,9 @@ Item {
         input.focus = false
     }
 
-    signal textChanged(string text)
+    function getValue() {
+        return input.text
+    }
 
     Rectangle {
         id: background
@@ -40,19 +50,24 @@ Item {
             color: Colors.TextColor
             verticalAlignment: Text.AlignVCenter
             enabled: root.editable
+            echoMode: root.mode
 
             activeFocusOnPress: true
             selectByMouse: true
             font.pointSize: root.fontSize
 
-            onEditingFinished: input.focus = false
+            onEditingFinished: {
+                root.textChanged(input.text)
+                input.focus = false
+            }
+
+//            onTextChanged: root.textChanged(input.text)
 
             onFocusChanged: {
                 if (focus) {
                     background.border.color = Colors.MainAccent
                 } else {
                     background.border.color = Colors.SubtleAccent
-                    root.textChanged(input.text)
                 }
             }
         }

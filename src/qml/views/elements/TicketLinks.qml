@@ -10,6 +10,12 @@ Item {
     property int initialHeight: 40
     property var component: ({})
 
+    function reset() {
+        for (var i = 0; i < mainRect.linksCount; i++)
+            column.children[i].destroy()
+            mainRect.linksCount = 0
+    }
+
     function removeMe(index) {
         mainRect.destroyLink(index)
         TicketManager.removeLink(index)

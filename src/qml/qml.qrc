@@ -32,6 +32,8 @@
         <file>views/elements/popup/PopupEntity.qml</file>
         <file>views/elements/popup/ErrorStack.qml</file>
         <file>views/elements/popup/NotifyStack.qml</file>
+        <file>views/Login.qml</file>
+        <file>views/AppView.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/dark/close.png</file>

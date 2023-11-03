@@ -5,6 +5,7 @@ import "qrc:/config/Colors.js" as Colors
 import "qrc:/config/Constants.js" as Constants
 
 Item {
+    id: root
     height: column.implicitHeight
 
     Rectangle {
@@ -20,10 +21,11 @@ Item {
             target: PopupManager
             function onRaiseNotify(obj) {
                 obj.parent = column
-                obj.width = parent.width
+                obj.width = root.width
                 obj.height = 75
                 let popup = mainRect.component.createObject(obj)
                 popup.setFontPointSize(16)
+                popup.setTextInCenter()
             }
         }
 

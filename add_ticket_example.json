@@ -1,0 +1,61 @@
+Received: {
+    "content": {
+        "ticket_data": {
+            "acceptance_criteria": "asddas",
+            "attachments": [],
+            "component": 1,
+            "create_date": "31.10.2023",
+            "create_time": "00:27:10",
+            "description": "gggggggggggggggghhhhhhhhhhhhhh",
+            "links": [],
+            "priority": 1,
+            "status": 0,
+            "ticket_type": 1,
+            "title": "Create wolf idle anim",
+            "update_date": "31.10.2023",
+            "update_time": "00:27:10"
+        },
+        "users_info": {
+            "assignee_id": 1,
+            "implementer_id": 1,
+            "reporter_id": 0
+        }
+    },
+    "request_data": {
+        "action": 1,
+        "content_id": 0,
+        "token": "token1234",
+        "user_id": 0
+    }
+}
+
+    Test: {
+    "content": {
+        "ticket_data": {
+            "title": "Fix spawner bug",
+            "ticket_type": 1,
+            "attachments": [],
+            "links": [],
+            "description": "For some values in initial_ai_number and max_ai_number, after entering spawner game crash with error \"ERROR DIVIDE BY 0\"",
+            "acceptance_criteria": "After entering spawner, game shouldn't crash",
+            "create_date": "05.10.2023",
+            "create_time": "12:47",
+            "update_date": "06.10.2023",
+            "update_time": "15:11",
+            "component": 8,
+            "priority": 3,
+            "status": 6
+        },
+        "users_info": {
+            "assignee_id": 1,
+            "reporter_id": 1,
+            "implementer_id": 1
+        }
+    },
+    "request_data": {
+        "user_id": 0,
+        "token": "token1234",
+        "action": 2,
+        "content_id": 1
+    }
+}

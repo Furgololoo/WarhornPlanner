@@ -11,7 +11,12 @@ Item {
 
     signal openList
     signal closeList
-    signal valueChanged(int value)
+
+    function reset() {
+        root.lostFocus()
+        root.selectedValueInt = -1
+        mainText.text = "Select..."
+    }
 
     function showError() {
         topRect.border.color = Colors.Red
@@ -21,12 +26,15 @@ Item {
         return !(root.selectedValueInt !== -1)
     }
 
+    function getValue() {
+        return root.selectedValueInt
+    }
+
     function selectedValue(value, index) {
         mainText.text = value
         root.selectedValueInt = index
         topRect.border.color = Colors.SubtleAccent
         console.log("Value changed: " + index)
-        valueChanged(index)
     }
 
     function lostFocus() {

@@ -7,6 +7,6 @@ namespace popup {
 class Error : public Popup {
   Q_OBJECT
 public:
-  Error();
+  Error(const int interval);
 };
 } // namespace popup

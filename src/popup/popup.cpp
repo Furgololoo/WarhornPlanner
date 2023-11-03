@@ -5,9 +5,10 @@
 
 namespace popup {
 
-Popup::Popup() {
+Popup::Popup(const int interval) {
+
   setFlag(ItemHasContents, true);
-  timer.setInterval(5000);
+  timer.setInterval(interval);
   timer.setSingleShot(true);
   connect(&timer, &QTimer::timeout, this,
           [this]() { emit timeToSayGoodbye(); });
@@ -16,36 +17,30 @@ Popup::Popup() {
 
 QSGNode *Popup::updatePaintNode(QSGNode *oldNode,
                                 UpdatePaintNodeData *updatePaintNodeData) {
-  qDebug() << "0";
   QSGSimpleRectNode *mainRect = static_cast<QSGSimpleRectNode *>(oldNode);
   QSGGeometryNode *borderNode;
   QSGGeometry *border;
-  qDebug() << "1";
+
   if (!mainRect) {
-    qDebug() << "2a";
     mainRect = new QSGSimpleRectNode(boundingRect(), m_baseColor);
     borderNode = new QSGGeometryNode;
     border = new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), 5);
     mainRect->appendChildNode(borderNode);
-    mainRect->setFlag(QSGNode::OwnsMaterial, true);
-    mainRect->setFlag(QSGNode::OwnsGeometry, true);
   } else {
-    qDebug() << "2b";
     borderNode = static_cast<QSGGeometryNode *>(mainRect->childAtIndex(0));
     border = borderNode->geometry();
+    borderNode->setFlag(QSGNode::OwnsMaterial, true);
+    borderNode->setFlag(QSGNode::OwnsGeometry, true);
   }
 
-  qDebug() << "3";
-  border->setLineWidth(2);
+  border->setLineWidth(1);
   border->setDrawingMode(QSGGeometry::DrawLineStrip);
   borderNode->setGeometry(border);
 
-  qDebug() << "4";
   auto *material = new QSGFlatColorMaterial;
   material->setColor(m_borderColor);
   borderNode->setMaterial(material);
 
-  qDebug() << "5";
   const QRectF rect = boundingRect();
 
   QSGGeometry::Point2D *vertices = border->vertexDataAsPoint2D();
@@ -60,4 +55,4 @@ QSGNode *Popup::updatePaintNode(QSGNode *oldNode,
   return mainRect;
 }
 
-}  // namespace popup
+} // namespace popup

@@ -7,7 +7,7 @@ namespace popup {
 class Warning : public Popup {
   Q_OBJECT
 public:
-  Warning();
+  Warning(const int interval);
 };
 
 } // namespace popup

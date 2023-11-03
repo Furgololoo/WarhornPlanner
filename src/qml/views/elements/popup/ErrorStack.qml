@@ -20,7 +20,7 @@ Item {
             target: PopupManager
             function onRaiseError(obj) {
                 obj.parent = column
-                obj.width = parent.width
+                obj.width = mainRect.width
                 obj.height = 50
                 mainRect.component.createObject(obj)
             }

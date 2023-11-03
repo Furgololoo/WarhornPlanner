@@ -6,6 +6,11 @@
 namespace ticket {
 TicketManager::TicketManager() {}
 
+void TicketManager::setNetworkManager(
+    std::shared_ptr<network::NetworkManager> network_ptr) {
+  network = network_ptr;
+}
+
 QVector<QString> TicketManager::getEnumList(const int &enumID) {
   QVector<QString> enumList = {};
   int enumsCount = 0;
@@ -47,6 +52,7 @@ QVector<QString> TicketManager::getEnumList(const int &enumID) {
 bool TicketManager::createTicket() {
   if (!ticket) {
     ticket = std::make_unique<Ticket>();
+    ticket->ticketStatus = TicketStatus::Open;
     qDebug() << "Created ticket";
     return true;
   }
@@ -147,6 +153,14 @@ void TicketManager::removeLink(const quint8 &link_id) {
   }
 }
 
-void TicketManager::saveTicket() {}
+void TicketManager::saveTicket() {
+  emit getData();
+  Q_ASSERT(network);
+  network->addTicket(std::move(ticket));
+  ticket.reset();
+  createTicket();
+
+  emit resetTicketView();
+}
 
 } // namespace ticket

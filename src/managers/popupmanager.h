@@ -10,24 +10,24 @@ class PopupManager : public QObject {
   Q_OBJECT
   PopupManager(QObject *parent = nullptr);
 
- public:
+public:
   static PopupManager &getInstance() {
     static PopupManager instance;
     return instance;
   }
 
- public slots:
-  void showError(const QString &message);
-  void showWarning(const QString &message);
-  void showNotify(const QString &message);
+public slots:
+  void showError(const QString &message, const int interval = 5000);
+  void showWarning(const QString &message, const int interval = 5000);
+  void showNotify(const QString &message, const int interval = 5000);
 
   void deletePopup();
 
- signals:
+signals:
   void raiseError(Popup *error);
   void raiseNotify(Popup *error);
 
- private:
+private:
   std::map<uint8_t, std::unique_ptr<Popup>> popups;
 };
-}  // namespace popup
+} // namespace popup

@@ -16,10 +16,16 @@ public:
   BoardManager *getBoardManager() { return &board; }
   ticket::TicketManager *getTicketManager() { return &ticketManager; }
 
+public slots:
+  void login(const QString &username, const QString &password);
+  void sendTestJson() { networkManager->sendTestJson(); };
+
 signals:
+  void logged();
+  void failedToLogin();
 
 private:
-  std::unique_ptr<network::NetworkManager> networkManager;
+  std::shared_ptr<network::NetworkManager> networkManager;
   std::unique_ptr<AccountManager> account;
   BoardManager board;
   ticket::TicketManager ticketManager;

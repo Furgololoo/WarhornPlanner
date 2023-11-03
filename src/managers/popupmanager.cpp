@@ -8,8 +8,8 @@ namespace popup {
 
 PopupManager::PopupManager(QObject *parent) : QObject{parent} {}
 
-void PopupManager::showError(const QString &message) {
-  std::unique_ptr<Popup> error = std::make_unique<Error>();
+void PopupManager::showError(const QString &message, const int interval) {
+  std::unique_ptr<Popup> error = std::make_unique<Error>(interval);
   error->setBaseText(message);
   error->setMapID(popups.size());
 
@@ -20,8 +20,8 @@ void PopupManager::showError(const QString &message) {
   popups.insert({error->getMapID(), std::move(error)});
 }
 
-void PopupManager::showWarning(const QString &message) {
-  std::unique_ptr<Popup> warning = std::make_unique<Warning>();
+void PopupManager::showWarning(const QString &message, const int interval) {
+  std::unique_ptr<Popup> warning = std::make_unique<Warning>(interval);
   warning->setBaseText(message);
   warning->setMapID(popups.size());
 
@@ -32,8 +32,8 @@ void PopupManager::showWarning(const QString &message) {
   popups.insert({warning->getMapID(), std::move(warning)});
 }
 
-void PopupManager::showNotify(const QString &message) {
-  std::unique_ptr<Popup> notify = std::make_unique<Notify>();
+void PopupManager::showNotify(const QString &message, const int interval) {
+  std::unique_ptr<Popup> notify = std::make_unique<Notify>(interval);
   notify->setBaseText(message);
   notify->setMapID(popups.size());
 
@@ -59,4 +59,4 @@ void PopupManager::deletePopup() {
   }
 }
 
-}  // namespace popup
+} // namespace popup

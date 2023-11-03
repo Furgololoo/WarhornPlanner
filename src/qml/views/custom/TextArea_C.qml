@@ -8,6 +8,11 @@ Item {
 
     property bool hasFocus: false
 
+    function reset() {
+        input.clear()
+        input.focus = false
+    }
+
     function showError() {
         background.border.color = Colors.Red
     }
@@ -25,12 +30,14 @@ Item {
         input.focus = false
     }
 
+    function getValue() {
+        return input.text
+    }
+
     onHasFocusChanged: {
         console.log("on has focus changed to: " + hasFocus)
         background.border.color = (root.hasFocus) ? Colors.MainAccent : Colors.SubtleAccent
     }
-
-    signal textChanged(string text)
 
     ScrollBar_C {
         id: scrollBar
@@ -97,8 +104,6 @@ Item {
 
             onFocusChanged: {
                 root.hasFocus = focus
-                if (!focus)
-                    root.textChanged(input.text)
             }
 
             background: Rectangle {

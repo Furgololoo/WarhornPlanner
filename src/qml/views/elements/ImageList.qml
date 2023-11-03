@@ -14,6 +14,12 @@ Item {
                     "qrc:/views/elements/ImageEntity.qml")
     }
 
+    function reset() {
+        for (var i = 0; i < root.entitiesCount; i++)
+            column.children[i].destroy()
+            root.entitiesCount = 0
+    }
+
     function removeMe(index) {
         root.destroyEntity(index)
     }

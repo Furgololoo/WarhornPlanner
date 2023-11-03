@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QJsonObject>
 #include <QUrl>
 
 #include "ticketinfo.h"
@@ -22,8 +23,13 @@ class Ticket {
 
 public:
   explicit Ticket();
+  QString getTitle() const { return title; };
+  QJsonObject toJson() const;
 
 private:
+  QJsonValue imageToJsonVal(const QImage &image);
+  QImage jsonValToImage(const QJsonValue &json_val);
+
   QString title;
   ticket::TicketType ticketType;
   QString acceptanceCriteria;

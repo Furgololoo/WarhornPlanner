@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../ticket/ticket.h"
+#include "networkmanager.h"
 #include <QObject>
 #include <memory>
 
@@ -9,6 +10,7 @@ class TicketManager : public QObject {
   Q_OBJECT
 public:
   TicketManager();
+  void setNetworkManager(std::shared_ptr<network::NetworkManager> network_ptr);
 
 public slots:
   QVector<QString> getEnumList(const int &enumID);
@@ -35,8 +37,13 @@ public slots:
 
 signals:
   void errorOccured(const QString &message);
+  void getData();
+
+  void resetTicketView();
 
 private:
   std::unique_ptr<Ticket> ticket;
+
+  std::shared_ptr<network::NetworkManager> network;
 };
 } // namespace ticket

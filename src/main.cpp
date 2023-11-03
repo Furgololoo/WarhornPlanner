@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
   QGuiApplication app(argc, argv);
 
   Coffey coffey;
-  //  coffey.test();
+
   QQmlApplicationEngine engine;
   engine.rootContext()->setContextProperty("BoardManager",
                                            coffey.getBoardManager());
@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
                                            coffey.getTicketManager());
   engine.rootContext()->setContextProperty("PopupManager",
                                            &popup::PopupManager::getInstance());
+  engine.rootContext()->setContextProperty("Coffey", &coffey);
 
   qmlRegisterType<ticket::TicketBase>("CustomElements", 1, 0, "TicketBase");
   qmlRegisterType<popup::Error>("CustomElements", 1, 0, "Error");
