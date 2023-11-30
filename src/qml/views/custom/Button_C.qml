@@ -15,9 +15,16 @@ Item {
     property int borderWidth: 0
     property int fontSize: 24
     property int hAlignment: Text.AlignHCenter
+    property int vAlignment: Text.AlignVCenter
 
 
     signal pressedButton()
+
+    function setBaseColor(selectedColor: color) {
+        rect.color = selectedColor
+        root.baseColor = selectedColor
+        root.hoverColor = selectedColor
+    }
 
     function enableHover() {
         rect.color = root.hoverColor
@@ -32,7 +39,7 @@ Item {
     Rectangle {
         id: rect
         anchors.fill: parent
-        color: baseColor
+        color: root.baseColor
         opacity: 1
         border.width: borderWidth
         border.color: borderColor
@@ -41,13 +48,13 @@ Item {
             id: mainText
             anchors.fill: parent
             anchors.leftMargin: Constants.BigMargin
-            text: baseText
+            text: root.baseText
             font.bold: true
             font.pointSize: fontSize
-            color: textColor
+            color: root.textColor
 
             horizontalAlignment: hAlignment
-            verticalAlignment: Text.AlignVCenter
+            verticalAlignment: vAlignment
         }
 
         MouseArea {

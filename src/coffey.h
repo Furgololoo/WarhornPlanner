@@ -17,16 +17,22 @@ public:
   ticket::TicketManager *getTicketManager() { return &ticketManager; }
 
 public slots:
-  void login(const QString &username, const QString &password);
   void sendTestJson() { networkManager->sendTestJson(); };
+
+  void login(const QString &login, const QString &password);
+  void onLogged(const QJsonObject &user_data);
+
+  QJsonObject getUserInfo() const;
 
 signals:
   void logged();
-  void failedToLogin();
+  void userLogged(QString userName);
+  void failedLogin(const QString &message);
 
 private:
   std::shared_ptr<network::NetworkManager> networkManager;
   std::unique_ptr<AccountManager> account;
   BoardManager board;
   ticket::TicketManager ticketManager;
+  std::shared_ptr<user::User> currentLoggedUser;
 };

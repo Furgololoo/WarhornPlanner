@@ -1,7 +1,7 @@
 import QtQuick
 
-import "qrc:/scripts/Colors.js" as Colors
-import "qrc:/scripts/Constants.js" as Constants
+import "qrc:/config/Colors.js" as Colors
+import "qrc:/config/Constants.js" as Constants
 
 Item {
     id: root
@@ -10,18 +10,21 @@ Item {
     property int max: 255
     property int defaultValue: 100
     property real ratio: max / (background.width - handler.width)
+    property color baseColor: Colors.MainAccent
+
 
     onRatioChanged: handler.x = defaultValue / ratio
 
+    signal valueChanged(value: int)
+
     Rectangle {
         id: background
-        width: parent.width
+        width: parent.width - input.width - Constants.SmallMargin
         height: 6
         radius: 4
-        anchors.centerIn: parent
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
         color: Colors.SubtleAccent
-
-        onWidthChanged: console.log(background.width)
 
         Rectangle {
             id: selectedArea
@@ -29,19 +32,22 @@ Item {
             radius: 4
             anchors.left: background.left
             anchors.right: handler.right
-            color: Colors.MainAccent
+            color: baseColor
         }
 
         Rectangle {
             id: handler
-            width: root.height * 0.7
-            height: root.height * 0.7
+            width: root.height * 0.4
+            height: root.height * 0.4
             radius: root.height
 
             anchors.verticalCenter: parent.verticalCenter
-            color: Colors.MainAccent
+            color: baseColor
 
-            onXChanged: input.setValue(handler.x * ratio)
+            onXChanged: {
+                input.setValue(handler.x * ratio)
+                valueChanged(handler.x * ratio)
+            }
 
             MouseArea {
                 anchors.fill: parent
@@ -71,10 +77,13 @@ Item {
     IntegerInput_C {
         id: input
         width: 40
-        height: 25
+        height: parent.height * 0.8
         anchors.verticalCenter: background.verticalCenter
         anchors.left: background.right
-        anchors.leftMargin: Constants.marginSize()
-        onValueChanged: function(value) { handler.x = value/ratio}
+        anchors.leftMargin: Constants.SmallMargin
+        accentColor: root.baseColor
+        onValueChanged: function(value) {
+            handler.x = value/ratio
+        }
     }
 }

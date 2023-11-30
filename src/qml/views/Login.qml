@@ -7,6 +7,28 @@ import "../config/Colors.js" as Colors
 import "../config/Constants.js" as Constants
 
 Item {
+    id: root
+
+    Connections {
+        target: Coffey
+        function onFailedLogin(message) {
+            root.clear()
+            PopupManager.showError(message, 3000)
+        }
+
+        function onLogged() {
+            root.clear()
+        }
+    }
+
+    function clear() {
+        highlighter.is_visible = false
+        highlighter.enableAnimation(false)
+        mainText.visible = true
+        busyIndicator.running = false
+        loginInput.reset()
+        passwordInput.reset()
+    }
 
     Rectangle {
         id: background
@@ -16,7 +38,7 @@ Item {
         MouseArea {
             anchors.fill: parent
             onPressed: {
-                usernameInput.lostFocus()
+                loginInput.lostFocus()
                 passwordInput.lostFocus()
             }
         }
@@ -112,25 +134,25 @@ Item {
                 anchors.topMargin: (parent.height - mainText.height - mainInput.height) / 2
 
                 Item {
-                    id: usernameItem
+                    id: loginItem
                     width: parent.width
                     height: parent.height * 0.5
                     anchors.top: parent.top
 
                     Text {
-                        id: usernameText
+                        id: loginText
                         height: 25
                         anchors.left: parent.left
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
-                        text: "Username"
+                        text: "login"
                         color: Colors.TextColor
                         font.pointSize: 14
                         font.bold: true
                     }
                     TextInput_C {
-                        id: usernameInput
-                        anchors.top: usernameText.bottom
+                        id: loginInput
+                        anchors.top: loginText.bottom
                         anchors.topMargin: Constants.BigMargin
                         anchors.left: parent.left
                         height: 40
@@ -167,6 +189,10 @@ Item {
                     }
                 }
             }
+            Component.onCompleted: {
+                loginInput.setText("bartek.furgol")
+                passwordInput.setText("admin")
+            }
 
             Button_C {
                 id: applyButton
@@ -179,20 +205,19 @@ Item {
                 fontSize: 20
 
                 onPressedButton: {
-                    Coffey.sendTestJson()
-//                    if (usernameInput.isEmpty() || passwordInput.isEmpty()) {
-//                        if (usernameInput.isEmpty())
-//                            usernameInput.showError()
-//                        if (passwordInput.isEmpty())
-//                            passwordInput.showError()
-//                        PopupManager.showError("Fill in all fields!", 3000)
-//                    } else {
-//                        highlighter.is_visible = true
-//                        highlighter.enableAnimation(true)
-//                        mainText.visible = false
-//                        busyIndicator.running = true
-//                        Coffey.login(usernameInput.text, passwordInput.text)
-//                    }
+                    if (loginInput.isEmpty() || passwordInput.isEmpty()) {
+                        if (loginInput.isEmpty())
+                            loginInput.showError()
+                        if (passwordInput.isEmpty())
+                            passwordInput.showError()
+                        PopupManager.showError("Fill in all fields!", 3000)
+                    } else {
+                        highlighter.is_visible = true
+                        highlighter.enableAnimation(true)
+                        mainText.visible = false
+                        busyIndicator.running = true
+                        Coffey.login(loginInput.getValue(), passwordInput.getValue())
+                    }
                 }
             }
         }

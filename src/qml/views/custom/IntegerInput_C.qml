@@ -1,11 +1,13 @@
 import QtQuick
 
-import "qrc:/scripts/Colors.js" as Colors
+import "qrc:/config/Colors.js" as Colors
+import "qrc:/config/Constants.js" as Constants
 
 Item {
-
+    id: root
     property int min: 0
     property int max: 255
+    property color accentColor: Colors.MainAccent
 
     function inputValidator(value: int) {
         if(value > max)
@@ -53,7 +55,7 @@ Item {
 
             onFocusChanged: {
                 if(focus) {
-                    background.border.color = Colors.MainAccent
+                    background.border.color = root.accentColor
                 }
                 else {
                     background.border.color = Colors.MainBGDarker

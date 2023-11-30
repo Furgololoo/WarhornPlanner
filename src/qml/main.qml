@@ -15,15 +15,13 @@ Window {
         target: Coffey
         function onLogged() {
             loader.setSource("qrc:/views/AppView.qml")
-        }
-        function onFailedToLogin() {
-
+            console.log("Succesfully logged");
         }
     }
 
     Loader {
         id: loader
         anchors.fill: parent
-        source: "qrc:/views/CreateTicket.qml"
+        source: "qrc:/views/AppView.qml"
     }
 }

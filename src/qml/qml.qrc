@@ -34,6 +34,8 @@
         <file>views/elements/popup/NotifyStack.qml</file>
         <file>views/Login.qml</file>
         <file>views/AppView.qml</file>
+        <file>views/elements/ChangePassword.qml</file>
+        <file>views/custom/ColorSelection_C.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/dark/close.png</file>
@@ -64,5 +66,9 @@
         <file>icons/light/add_image.png</file>
         <file>icons/dark/add_image2.png</file>
         <file>icons/light/add_image2.png</file>
+        <file>icons/dark/done.png</file>
+        <file>icons/dark/edit.png</file>
+        <file>icons/light/done.png</file>
+        <file>icons/light/edit.png</file>
     </qresource>
 </RCC>

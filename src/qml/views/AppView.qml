@@ -10,6 +10,12 @@ Item {
         target: PopupManager
         function onRaiseError(text) {}
     }
+    Connections {
+        target: appPanel
+        function onOpenUserSettings() {
+            loader.setSource("qrc:/views/Account.qml")
+        }
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -42,7 +48,7 @@ Item {
             anchors.left: parent.left
             anchors.leftMargin: Constants.BigMargin + 40
             anchors.right: parent.right
-            source: "qrc:/views/CreateTicket.qml"
+            source: "qrc:/views/Account.qml"
             z: 1
 
             ErrorStack {

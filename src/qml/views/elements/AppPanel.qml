@@ -5,6 +5,15 @@ import "../../config/Constants.js" as Constants
 Item {
     id: root
 
+    signal openUserSettings()
+
+    Connections {
+        target: Coffey
+        function onUserLogged(userName: string) {
+            userText.text = userName
+        }
+    }
+
     Rectangle {
         anchors.fill: parent
         color: Colors.MainBG
@@ -26,14 +35,14 @@ Item {
 
         // User info
         Text {
-            id: text1
+            id: userText
             height: parent.height
             anchors.right: parent.right
             anchors.rightMargin: Constants.BigMargin
 
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
-            text: "Szkuti"
+            text: "NotLogged"
             font.bold: true
             color: Colors.TextColor
             font.pointSize: 20
@@ -42,8 +51,7 @@ Item {
                 anchors.fill: parent
 
                 onClicked: {
-                    // open user panel
-                    BoardManager.showTickets()
+                    openUserSettings()
                 }
             }
         }

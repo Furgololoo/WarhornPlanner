@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Effects
-import "../../config/Colors.js" as Colors
-import "../../config/Constants.js" as Constants
+import "qrc:/config/Colors.js" as Colors
+import "qrc:/config/Constants.js" as Constants
 import CustomElements
 
 Item {

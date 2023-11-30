@@ -40,7 +40,7 @@ QJsonObject Ticket::toJson() const {
   }
 
   QJsonArray attachments_arr{};
-  QJsonObject attachment{{"url", ""}, {"format", ""}};
+  QJsonObject attachment{{"file", ""}, {"format", ""}};
 
   for (const auto &i : attachments) {
     attachment.insert("format", 123);

@@ -16,6 +16,10 @@ NetworkManager::NetworkManager(const QUrl &url, QObject *parent) {
 
 NetworkManager::~NetworkManager() { closeSession(); }
 
+void NetworkManager::setUserPointer(std::shared_ptr<user::User> user) {
+  current_logged_user = user;
+}
+
 void NetworkManager::startSession(const QUrl &url) {
   if (webSocket.state() != QAbstractSocket::ConnectedState &&
       webSocket.state() != QAbstractSocket::ConnectingState) {
@@ -57,51 +61,93 @@ void NetworkManager::addTicket(std::unique_ptr<ticket::Ticket> ticket) {
 
   QJsonDocument doc(body);
 
+  auto response_func = [&](const QJsonDocument &body) {
+    qDebug() << "Response to " << __FUNCTION__ << " request.\nData: " << body;
+  };
+  response = response_func;
+
   if (webSocket.state() == QAbstractSocket::SocketState::ConnectedState) {
     webSocket.sendBinaryMessage(doc.toJson(QJsonDocument::JsonFormat::Compact));
   }
   qDebug() << doc;
 }
 
+void NetworkManager::login(const QString &login, const QString &password) {
+  QJsonObject body{};
+  QJsonObject request_data{};
+  request_data["action"] = static_cast<quint8>(ERequestActions::LOGIN);
+  request_data["content_id"] = static_cast<quint8>(EContentID::USER);
+  body["request_data"] = request_data;
+
+  QJsonObject content{};
+  content["login"] = login;
+  content["password"] = password;
+  body["content"] = content;
+
+  QJsonDocument doc(body);
+
+  auto response_func = [&](const QJsonDocument &body) {
+    auto content_data = body.object().take("content").toObject();
+    if (content_data.contains("token"))
+      emit logged(content_data);
+    else
+      emit failedLogin(content_data.take("error").toString());
+    qDebug() << "Response to " << __FUNCTION__
+             << " request.\nData: " << content_data;
+  };
+  response = response_func;
+
+  if (webSocket.state() == QAbstractSocket::SocketState::ConnectedState) {
+    webSocket.sendBinaryMessage(doc.toJson(QJsonDocument::JsonFormat::Compact));
+  }
+}
+
 void NetworkManager::sendTestJson() {
 
-  QJsonObject content;
-  QJsonObject usersInfo;
-  usersInfo["assignee_id"] = 1;
-  usersInfo["reporter_id"] = 1;
-  usersInfo["implementer_id"] = 1;
-  content["users_info"] = usersInfo;
+  QJsonObject content{};
+  QJsonObject usersInfo{};
+  //  usersInfo["assignee_id"] = 1;
+  //  usersInfo["reporter_id"] = 1;
+  //  usersInfo["implementer_id"] = 1;
+  //  content["users_info"] = usersInfo;
 
-  QJsonObject ticketData;
-  ticketData["title"] = "Fix spawner bug";
-  ticketData["ticket_type"] = 1;
-  ticketData["attachments"] = QJsonArray{};
-  ticketData["links"] = QJsonArray{};
-  ticketData["ticket_type"] = 1;
-  ticketData["description"] =
-      "For some values in initial_ai_number and max_ai_number, after"
-      " entering spawner game crash with error \"ERROR DIVIDE BY 0\"";
-  ticketData["acceptance_criteria"] =
-      "After entering spawner, game shouldn't crash";
-  ticketData["create_date"] = "05.10.2023";
-  ticketData["create_time"] = "12:47";
-  ticketData["update_date"] = "06.10.2023";
-  ticketData["update_time"] = "15:11";
-  ticketData["component"] = 8;
-  ticketData["priority"] = 3;
-  ticketData["status"] = 6;
-  content["ticket_data"] = ticketData;
+  QJsonObject ticketData{};
+  //  ticketData["title"] = "Fix spawner bug";
+  //  ticketData["ticket_type"] = 1;
+  //  ticketData["attachments"] = QJsonArray{};
+  //  ticketData["links"] = QJsonArray{};
+  //  ticketData["ticket_type"] = 1;
+  //  ticketData["description"] =
+  //      "For some values in initial_ai_number and max_ai_number, after"
+  //      " entering spawner game crash with error \"ERROR DIVIDE BY 0\"";
+  //  ticketData["acceptance_criteria"] =
+  //      "After entering spawner, game shouldn't crash";
+  //  ticketData["create_date"] = "05.10.2023";
+  //  ticketData["create_time"] = "12:47";
+  //  ticketData["update_date"] = "06.10.2023";
+  //  ticketData["update_time"] = "15:11";
+  //  ticketData["component"] = 8;
+  //  ticketData["priority"] = 3;
+  //  ticketData["status"] = 6;
+  //  content["ticket_data"] = ticketData;
 
+  Q_ASSERT(current_logged_user);
   QJsonObject request_data;
-  request_data["user_id"] = 0;
-  request_data["token"] = "token1234";
-  request_data["action"] = 2;
+  request_data["user_id"] = current_logged_user->getUserId();
+  request_data["token"] = current_logged_user->getToken();
+  request_data["action"] = static_cast<quint8>(ERequestActions::TEST);
   request_data["content_id"] = 1;
 
   QJsonObject body;
   body["content"] = content;
   body["request_data"] = request_data;
   QJsonDocument doc(body);
+
+  auto response_func = [&](const QJsonDocument &body) {
+    qDebug() << __FUNCTION__ << "   "
+             << "response";
+  };
+  response = response_func;
 
   if (webSocket.state() == QAbstractSocket::ConnectedState)
     webSocket.sendBinaryMessage(doc.toJson(QJsonDocument::JsonFormat::Compact));
@@ -131,14 +177,8 @@ void NetworkManager::errorOccured(QAbstractSocket::SocketError error) {
 
 void NetworkManager::onRead(QString mess) {
   static int counter = 0;
-  qDebug() << "Message received: " << mess;
-  //  counter++;
-  //  if (counter <= 2)
-  //    closeSession();
-  //  else {
-  //    qDebug() << "Sending message: ";
-  //    webSocket.sendTextMessage(QStringLiteral("Hello, world!"));
-  //  }
+  //  qDebug() << "Message received: " << mess;
+  response(QJsonDocument::fromJson(mess.toUtf8()));
 }
 
 void NetworkManager::onSslErrors(const QList<QSslError> &errors) {
