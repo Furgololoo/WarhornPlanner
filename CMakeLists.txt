@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.24)
 
-project(WarhornPlanner VERSION 0.1 LANGUAGES CXX)
+project(Coffey VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -8,9 +8,9 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 20)
 
 
-find_package(Qt6 6.2 COMPONENTS Quick WebSockets REQUIRED)
+find_package(Qt6 6.6 COMPONENTS Quick WebSockets REQUIRED)
 
-qt_add_executable(appWarhornPlanner
+qt_add_executable(Coffey
 
     src/main.cpp
 
@@ -47,7 +47,7 @@ qt_add_executable(appWarhornPlanner
     src/qml/qml.qrc
 )
 
-set_target_properties(appWarhornPlanner PROPERTIES
+set_target_properties(Coffey PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -55,9 +55,9 @@ set_target_properties(appWarhornPlanner PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(appWarhornPlanner
+target_link_libraries(Coffey
     PRIVATE Qt6::Quick Qt6::WebSockets)
 
-install(TARGETS appWarhornPlanner
+install(TARGETS Coffey
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

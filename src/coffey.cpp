@@ -7,6 +7,7 @@
 #include <QJsonObject>
 #include <QTime>
 
+#include "managers/configmanager.h"
 #include "ticket/ticketinfo.h"
 
 Coffey::Coffey(QObject *parent) : QObject{parent} {
@@ -22,6 +23,8 @@ Coffey::Coffey(QObject *parent) : QObject{parent} {
   connect(networkManager.get(), &network::NetworkManager::failedLogin, this,
           &Coffey::failedLogin);
   currentLoggedUser = std::make_shared<user::User>();
+
+  auto &conf = app_config::ConfigManager::instance();
 }
 
 void Coffey::login(const QString &login, const QString &password) {

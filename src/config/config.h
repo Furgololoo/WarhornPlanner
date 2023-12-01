@@ -5,3 +5,6 @@
 
 constexpr const std::array kTicketColNames = {
     "TO DO", "IN PROGRESS", "BLOCKED", "IN TEST", "VALIDATED", "TDD", "DONE"};
+
+constexpr const std::array kAppDirs = {"logs", "config", "images",
+                                       "images/other", "images/users"};
