@@ -35,11 +35,15 @@ public slots:
 
   void saveTicket();
 
+  void openTicket(const unsigned int ticket_id);
+
 signals:
   void errorOccured(const QString &message);
   void getData();
 
   void resetTicketView();
+
+  void openTicketView();
 
 private:
   std::unique_ptr<Ticket> ticket;

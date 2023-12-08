@@ -4,7 +4,7 @@
         <file>config/Colors.js</file>
         <file>config/Constants.js</file>
         <file>config/Fonts.js</file>
-        <file>views/elements/Ticket.qml</file>
+        <file>views/elements/TicketPreview.qml</file>
         <file>views/elements/TicketCol.qml</file>
         <file>views/Board.qml</file>
         <file>views/custom/Button_C.qml</file>
@@ -36,6 +36,7 @@
         <file>views/AppView.qml</file>
         <file>views/elements/ChangePassword.qml</file>
         <file>views/custom/ColorSelection_C.qml</file>
+        <file>views/Ticket.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/dark/close.png</file>

@@ -11,6 +11,12 @@ Item {
         function onRaiseError(text) {}
     }
     Connections {
+        target: TicketManager
+        function onOpenTicketView() {
+            loader.setSource("qrc:/views/Ticket.qml")
+        }
+    }
+    Connections {
         target: appPanel
         function onOpenUserSettings() {
             loader.setSource("qrc:/views/Account.qml")

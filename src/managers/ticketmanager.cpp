@@ -163,4 +163,8 @@ void TicketManager::saveTicket() {
   emit resetTicketView();
 }
 
+void TicketManager::openTicket(const unsigned int ticket_id) {
+  emit openTicketView();
+}
+
 } // namespace ticket

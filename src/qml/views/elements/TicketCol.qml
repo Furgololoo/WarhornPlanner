@@ -74,7 +74,7 @@ Item {
                     id: repeater
                     anchors.fill: parent
 
-                    Ticket {
+                    TicketPreview {
                         id: ticket
                         width: column.width
                         height: column.width * 0.6
