@@ -16,11 +16,13 @@ app_config::ConfigManager::ConfigManager(QObject *parent) : QObject{parent} {
       QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
   m_config_file = "config.json";
 
-  setupAppDir();
+  if (setupAppDir()) {
+    setupAppConfigFile();
+  }
   logAppPaths();
 }
 
-void app_config::ConfigManager::setupAppDir() const {
+bool app_config::ConfigManager::setupAppDir() const {
   try {
     for (const auto &i : kAppDirs) {
       if (m_app_dir_path.exists(QString::fromStdString(i))) {
@@ -36,7 +38,9 @@ void app_config::ConfigManager::setupAppDir() const {
   } catch (const std::exception &e) {
     qCritical() << "Catched error in " << __FUNCTION__
                 << "\nwhat: " << e.what();
+    return false;
   }
+  return true;
 }
 
 void app_config::ConfigManager::logAppPaths() const {
@@ -55,5 +59,19 @@ void app_config::ConfigManager::logDirStructure(
     if (entry.is_directory()) {
       qInfo() << QString::fromStdString(entry.path().string());
     }
+  }
+}
+
+void app_config::ConfigManager::setupAppConfigFile() {
+  m_config_file = m_app_dir_path.path() + "/" +
+                  QString::fromStdString(kAppDirs[1]) + "/" + kConfigFileName;
+  QFile config_file(m_config_file);
+  if (!config_file.exists()) {
+    qInfo() << "Config file is missing. Creating one.";
+  }
+  if (config_file.open(QIODeviceBase::WriteOnly,
+                       QFile::Permission::ReadOwner |
+                           QFile::Permission::WriteOwner)) {
+    config_file.close();
   }
 }

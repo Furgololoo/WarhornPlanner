@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Effects
+import QtQuick.Controls
 import CustomElements
 import "custom/"
 import "elements/"
@@ -16,16 +17,6 @@ Item {
         color: Colors.MainBGDarker
         property var component: ({})
 
-        //        Connections {
-        //            target: PopupManager
-        //            function onRaiseError(obj) {
-        //                obj.parent = column
-        //                obj.width = parent.width
-        //                obj.height = 50
-        //                mainRect.component.createObject(obj)
-        //            }
-        //        }
-
         Component.onCompleted: {
             var user_info = Coffey.getUserInfo()
             userNameText.text = user_info["user_name"]
@@ -33,12 +24,36 @@ Item {
             repeater.model = user_info["user_roles"]
         }
 
+        Text {
+            id: label
+            height: parent.height * 0.1
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: Constants.BigMargin
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            text: "Account settings"
+            color: Colors.TextColor
+            font.pointSize: 30
+            font.bold: true
+        }
+
+        Rectangle {
+            id: mainSeparator
+            color: Colors.SubtleAccent
+            width: parent.width
+            anchors.top: label.bottom
+            anchors.topMargin: Constants.BigMargin
+            anchors.horizontalCenter: parent.horizontalCenter
+            height: 2
+            radius: 2
+        }
 
         ScrollBar_C {
             id: scrollBar
             height: flickable.height
             width: parent.width * 0.012
-            anchors.top: parent.top
+            anchors.top: mainSeparator.bottom
             anchors.topMargin: Constants.BigMargin
             anchors.right: parent.right
 
@@ -59,11 +74,11 @@ Item {
 
         Flickable {
             id: flickable
-            anchors.top: parent.top
+            anchors.top: mainSeparator.bottom
             anchors.topMargin: Constants.BigMargin
             anchors.bottom: parent.bottom
             anchors.left: parent.left
-            anchors.leftMargin: Constants.BigMargin * 2
+            anchors.leftMargin: Constants.BigMargin * 3
             anchors.right: (scrollBar.visible === true) ? scrollBar.left : parent.right
             anchors.rightMargin: Constants.SmallMargin
             contentHeight: column.implicitHeight
@@ -176,11 +191,25 @@ Item {
                             anchors.fill: parent
                             onClicked: {
                                 // send change user name request
-                                userNameItem.enableEdit = false
+                                if(userNameInput.isEmpty()) {
+                                    PopupManager.showError("User name should not be empty!", 3000)
+                                    userNameInput.showError()
+                                }
+                                else {
+                                    Coffey.changeUserName(userNameInput.getValue())
+                                    userNameItem.enableEdit = false
+                                    userNameBusyIndicator.running = true
+                                }
                             }
                         }
                     }
 
+                    BusyIndicator {
+                        id: userNameBusyIndicator
+                        running: false
+                        height: userNameLbl.height
+                        anchors.left: userNameInput.right
+                    }
                 }
 
                 Rectangle {
@@ -272,9 +301,24 @@ Item {
                             anchors.fill: parent
                             onClicked: {
                                 // send change user name request
-                                loginItem.enableEdit = false
+                                if(loginInput.isEmpty()) {
+                                    PopupManager.showError("User name should not be empty!", 3000)
+                                    loginInput.showError()
+                                }
+                                else {
+                                    Coffey.changeLogin(loginInput.getValue())
+                                    loginItem.enableEdit = false
+                                    userNameBusyIndicator.running = true
+                                }
                             }
                         }
+                    }
+
+                    BusyIndicator {
+                        id: loginBusyIndicator
+                        running: false
+                        height: loginLbl.height
+                        anchors.left: loginInput.right
                     }
                 }
 

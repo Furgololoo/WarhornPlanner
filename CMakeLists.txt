@@ -19,6 +19,8 @@ qt_add_executable(Coffey
 
     # Main Class
     src/coffey.h src/coffey.cpp
+    src/management/coffeybase.h src/management/coffeybase.cpp
+    src/management/coffeyuser.h src/management/coffeyuser.cpp
 
     # Managers
     src/managers/objectmanager.h src/managers/objectmanager.cpp
@@ -45,6 +47,8 @@ qt_add_executable(Coffey
 
     # Resources
     src/qml/qml.qrc
+    src/management/coffeybase.h src/management/coffeybase.cpp
+    src/management/coffeyuser.h src/management/coffeyuser.cpp
 )
 
 set_target_properties(Coffey PROPERTIES

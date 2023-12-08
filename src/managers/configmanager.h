@@ -19,9 +19,11 @@ public:
 private:
   explicit ConfigManager(QObject *parent = nullptr);
 
-  void setupAppDir() const;
+  bool setupAppDir() const;
   void logAppPaths() const;
   void logDirStructure(const fs::path &current_dir) const;
+
+  void setupAppConfigFile();
 
   QDir m_app_dir_path{};
   QString m_config_file{};
