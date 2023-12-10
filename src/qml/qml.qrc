@@ -37,6 +37,9 @@
         <file>views/elements/ChangePassword.qml</file>
         <file>views/custom/ColorSelection_C.qml</file>
         <file>views/Ticket.qml</file>
+        <file>views/custom/EditableLabel.qml</file>
+        <file>views/elements/TextSeparator.qml</file>
+        <file>views/elements/TicketDetails.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/dark/close.png</file>

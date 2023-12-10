@@ -11,3 +11,5 @@ CoffeyBase::CoffeyBase(QObject *parent)
 
   currentLoggedUser = std::make_shared<user::User>();
 }
+
+QString CoffeyBase::getProjectName(const int id) { return "testProjectName"; }

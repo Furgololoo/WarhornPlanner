@@ -29,7 +29,7 @@ Received: {
     }
 }
 
-    Test: {
+Test: {
     "content": {
         "ticket_data": {
             "title": "Fix spawner bug",
@@ -44,7 +44,9 @@ Received: {
             "update_time": "15:11",
             "component": 8,
             "priority": 3,
-            "status": 6
+            "status": 6,
+            "sprint_id": 1,
+            "project_id": 1
         },
         "users_info": {
             "assignee_id": 1,
@@ -53,7 +55,7 @@ Received: {
         }
     },
     "request_data": {
-        "user_id": 0,
+        "user_id": 1,
         "token": "token1234",
         "action": 2,
         "content_id": 1

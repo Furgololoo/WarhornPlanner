@@ -10,6 +10,8 @@
 namespace ticket {
 Ticket::Ticket() {}
 
+Ticket::Ticket(const QJsonObject &data) { fromJson(data); }
+
 QJsonObject Ticket::toJson() const {
   QJsonObject ticket_data;
 
@@ -53,6 +55,8 @@ QJsonObject Ticket::toJson() const {
 
   return ticket_data;
 }
+
+void Ticket::fromJson(const QJsonObject &data) {}
 
 QJsonValue Ticket::imageToJsonVal(const QImage &image) {
   auto pix = QPixmap::fromImage(image);

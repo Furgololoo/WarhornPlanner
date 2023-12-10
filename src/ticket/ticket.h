@@ -23,13 +23,19 @@ class Ticket {
 
 public:
   explicit Ticket();
+  explicit Ticket(const QJsonObject &data);
   QString getTitle() const { return title; };
   QJsonObject toJson() const;
+  void fromJson(const QJsonObject &data);
 
 private:
   QJsonValue imageToJsonVal(const QImage &image);
   QImage jsonValToImage(const QJsonValue &json_val);
 
+  int ticket_id;
+  int sprint_id;
+  int project_id;
+  QString ticket_name;
   QString title;
   ticket::TicketType ticketType;
   QString acceptanceCriteria;

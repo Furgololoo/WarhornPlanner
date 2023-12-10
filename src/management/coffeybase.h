@@ -17,6 +17,8 @@ public:
 public slots:
   void sendTestJson() { networkManager->sendTestJson(); };
 
+  QString getProjectName(const int id);
+
 protected:
   std::shared_ptr<network::NetworkManager> networkManager;
   std::unique_ptr<AccountManager> account;
@@ -24,4 +26,6 @@ protected:
   ticket::TicketManager ticketManager;
   std::shared_ptr<user::User> currentLoggedUser;
   app_config::ConfigManager &conf;
+
+  std::vector<QString> projects;
 };

@@ -9,6 +9,8 @@ Window {
     id: window
     title: qsTr("Coffey")
     visibility: Qt.WindowFullScreen
+    minimumHeight: 720
+    minimumWidth: 1280
     visible: true
 
     Connections {

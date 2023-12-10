@@ -30,11 +30,6 @@ QString TicketBase::getTitle() const {
   return ticketInfo->title;
 }
 
-QString TicketBase::getDescription() const {
-  Q_ASSERT(ticketInfo);
-  return ticketInfo->description;
-}
-
 // QString TicketInfo::getAssigneeUser() const { return assigneeUser.getName();
 // }
 
@@ -45,11 +40,6 @@ QString TicketBase::getDescription() const {
 QString TicketBase::getComponent() const {
   Q_ASSERT(ticketInfo);
   return ticketComponentsToString(ticketInfo->component);
-}
-
-QString TicketBase::getCreateDate() const {
-  Q_ASSERT(ticketInfo);
-  return ticketInfo->createDate;
 }
 
 QString TicketBase::getUpdateDate() const {

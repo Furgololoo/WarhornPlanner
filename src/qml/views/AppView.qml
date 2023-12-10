@@ -54,7 +54,7 @@ Item {
             anchors.left: parent.left
             anchors.leftMargin: Constants.BigMargin + 40
             anchors.right: parent.right
-            source: "qrc:/views/Account.qml"
+            source: "qrc:/views/Ticket.qml"
             z: 1
 
             ErrorStack {

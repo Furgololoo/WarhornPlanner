@@ -16,11 +16,8 @@ public slots:
   QString getPriority() const;
   quint8 getPriorityInt() const;
   QString getTitle() const;
-  QString getDescription() const;
-  //  QString getAssigneeUser() const;
   //  QImage getAssigneeUserImage() const;
   QString getComponent() const;
-  QString getCreateDate() const;
   QString getUpdateDate() const;
   QString getTicketStatus() const;
 

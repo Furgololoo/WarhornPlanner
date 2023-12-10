@@ -5,8 +5,9 @@ import "qrc:/config/Constants.js" as Constants
 
 Item {
     id: root
-
+    property bool isEditable: true
     property bool hasFocus: false
+    property string baseText: "undefined"
 
     function reset() {
         input.clear()
@@ -35,8 +36,8 @@ Item {
     }
 
     onHasFocusChanged: {
-        console.log("on has focus changed to: " + hasFocus)
-        background.border.color = (root.hasFocus) ? Colors.MainAccent : Colors.SubtleAccent
+        if(isEditable)
+            background.border.color = (root.hasFocus) ? Colors.MainAccent : Colors.SubtleAccent
     }
 
     ScrollBar_C {
@@ -86,12 +87,14 @@ Item {
         TextArea.flickable: TextArea {
             id: input
             anchors.fill: parent
+            readOnly: !root.isEditable
             implicitWidth: root.width - 30
             //            implicitHeight: root.height > contentHeight ? root.height : contentHeight
             color: Colors.TextColor
             textFormat: TextEdit.PlainText
             activeFocusOnPress: true
             font.pointSize: 11
+            text: root.baseText
 
             onTextChanged: {
                 // it has to be here, scaling app causes slider bug

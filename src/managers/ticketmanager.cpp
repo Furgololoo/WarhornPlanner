@@ -1,4 +1,5 @@
 #include "ticketmanager.h"
+#include <QJsonArray>
 
 #include <ranges>
 #include <vector>
@@ -57,6 +58,84 @@ bool TicketManager::createTicket() {
     return true;
   }
   return false;
+}
+
+QString TicketManager::getTicketName() const {
+  if (current_managed_ticket)
+    return current_managed_ticket->ticket_name;
+  return "ticket name error";
+}
+
+QString TicketManager::getTitle() const {
+  if (current_managed_ticket)
+    return current_managed_ticket->title;
+  return "ticket error";
+}
+
+int TicketManager::getProjectID() const {
+  if (current_managed_ticket)
+    return current_managed_ticket->project_id;
+  return -1;
+}
+
+int TicketManager::getSprintID() const {
+  if (current_managed_ticket)
+    return current_managed_ticket->sprint_id;
+  return -1;
+}
+
+quint8 TicketManager::getType() const {
+  if (current_managed_ticket)
+    return static_cast<quint8>(current_managed_ticket->ticketType);
+  return 100;
+}
+
+QString TicketManager::getAcceptanceCriteria() const {
+  if (current_managed_ticket)
+    return current_managed_ticket->acceptanceCriteria;
+  return "ticket error";
+}
+
+QString TicketManager::getDescription() const {
+  if (current_managed_ticket)
+    return current_managed_ticket->description;
+  return "ticket error";
+}
+
+quint8 TicketManager::getComponent() const {
+  if (current_managed_ticket)
+    return static_cast<quint8>(current_managed_ticket->ticketComponent);
+  return 100;
+}
+
+quint8 TicketManager::getPriority() const {
+  if (current_managed_ticket)
+    return static_cast<quint8>(current_managed_ticket->ticketPriority);
+  return 100;
+}
+
+quint8 TicketManager::getStatus() const {
+  if (current_managed_ticket)
+    return static_cast<quint8>(current_managed_ticket->ticketStatus);
+  return 100;
+}
+
+QJsonArray TicketManager::getLink() const {
+  if (current_managed_ticket) {
+    QJsonArray links;
+    for (const auto &i : current_managed_ticket->links) {
+      links.push_back(QJsonObject(
+          {{"link_type", i.linkType}, {"link_ticket", i.ticketID}}));
+    }
+    return links;
+  }
+  return QJsonArray();
+}
+
+QJsonArray TicketManager::getAttachment() const {
+  QJsonArray attachments;
+
+  return attachments;
 }
 
 void TicketManager::setTitle(const QString &title) {
@@ -163,7 +242,46 @@ void TicketManager::saveTicket() {
   emit resetTicketView();
 }
 
+void TicketManager::closeTicket() {}
+
 void TicketManager::openTicket(const unsigned int ticket_id) {
+  QJsonObject ticket1;
+  QJsonObject body;
+  QJsonObject usersInfo;
+  usersInfo["assignee_id"] = "3";
+  usersInfo["reporter_id"] = "2";
+  usersInfo["implementer_id"] = "1";
+  body["users_info"] = usersInfo;
+
+  QJsonObject ticketData;
+  ticketData["ticket_id"] = 1;
+  ticketData["ticket_name"] = "TW-159";
+  ticketData["title"] = "Fix AI";
+  ticketData["description"] = "Create new AI";
+  ticketData["acceptance_criteria"] = "AI should work and not crash";
+  ticketData["attachments"] = QJsonArray();
+  ticketData["links"] = QJsonArray();
+  QDate createDate(2023, 10, 5);
+  QTime createTime(12, 47, 25);
+  QDate updateDate(2023, 10, 6);
+  QTime updateTime(15, 11, 7);
+  ticketData["create_date"] = createDate.toString();
+  ticketData["create_time"] = createTime.toString();
+  ticketData["update_date"] = updateDate.toString();
+  ticketData["update_time"] = updateTime.toString();
+  ticketData["ticket_type"] = 1;
+  ticketData["component"] =
+      ticket::ticketComponentsToString(ticket::TicketComponents::Code);
+  ticketData["priority"] =
+      ticket::ticketPriorityToString(ticket::TicketPriority::P3);
+  ticketData["status"] =
+      ticket::ticketStatusToString(ticket::TicketStatus::InProgress);
+  body["ticket_data"] = ticketData;
+
+  ticket1["ticket"] = body;
+
+  current_managed_ticket = std::make_shared<Ticket>(ticket1);
+  downloaded_tickets.push_back(current_managed_ticket);
   emit openTicketView();
 }
 

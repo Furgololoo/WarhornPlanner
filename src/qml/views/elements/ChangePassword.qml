@@ -4,10 +4,10 @@ import "../custom/"
 import "qrc:/config/Colors.js" as Colors
 import "qrc:/config/Constants.js" as Constants
 
-dodaj cos takiego jak request ID.
-network manager nie powinien trzymac tylko ejdnego requestu ale kilka
-i po IDkach wywoływać funkcje.
-Sprobuj dodac tez on_fail i on_succ funkcje
+//dodaj cos takiego jak request ID.
+//network manager nie powinien trzymac tylko ejdnego requestu ale kilka
+//i po IDkach wywoływać funkcje.
+//Sprobuj dodac tez on_fail i on_succ funkcje
 
 Item {
     height: column.implicitHeight
